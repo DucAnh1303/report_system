@@ -97,7 +97,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void delete(Integer id, String userName) {
+    public void delete(Integer id) {
         try {
             userGroupRepository.deleteGroupUser(id);
             userRepository.deleteIds(id);

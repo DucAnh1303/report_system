@@ -60,8 +60,8 @@ public class UserController {
 
     @PostMapping("/api/delete")
     @CrossOrigin
-    public ResponseEntity<Object> delete(@Validated @RequestBody UserDeleteRequest request) {
-        userService.delete(request.getId(), request.getUserLogin());
+    public ResponseEntity<Object> delete(@RequestParam("id")Integer id) {
+        userService.delete(id);
         return ResponseEntity.status(HttpStatus.OK).body(new SuccessResponse<>(HttpStatus.OK.value(), "delete success", ""));
     }
 

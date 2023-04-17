@@ -15,7 +15,7 @@ public interface UserService {
 
     UserDto loginInfor(String userLogin);
 
-    void delete(Integer id, String userName);
+    void delete(Integer id);
 
     boolean isCheckReport(int groupId);
     PageResponse getAllUser(UserSearchRequest request, int pageSize, int pageNo);
