@@ -12,11 +12,16 @@ import com.example.itspower.repository.repositoryjpa.UserJpaRepository;
 import com.example.itspower.request.search.UserSearchRequest;
 import com.example.itspower.request.userrequest.UserUpdateRequest;
 import com.example.itspower.response.SuccessResponse;
+import com.example.itspower.response.dynamic.PageResponse;
+import com.example.itspower.response.search.UserRequest;
 import com.example.itspower.response.user.ListUserResponse;
 import com.example.itspower.response.user.UserResponseSave;
-import com.example.itspower.response.search.UserRequest;
 import com.example.itspower.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -112,8 +117,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<ListUserResponse> getAllUser( UserSearchRequest request) {
-        return userJpaRepository.listUser( request.getGroupName(), request.getUserName());
+    public PageResponse getAllUser(UserSearchRequest request, int pageSize, int pageNo) {
+        int offset = (pageNo - 1) * pageSize;
+        int countUsers = userJpaRepository.countUser();
+        List<ListUserResponse> resUser = userJpaRepository.listUser(request.getGroupName(), request.getUserName(), pageSize, offset);
+        Pageable pageable = PageRequest.of(offset, pageSize);
+        final Page<ListUserResponse> page = new PageImpl<>(resUser, pageable, 0);
+        return new PageResponse<>(page, (long) countUsers);
     }
 
     public UserDto loginInfor(String userLogin) {

@@ -49,7 +49,7 @@ public class EmployeeGroupServiceImpl implements EmployeeGroupService {
         int countEmployee = groupRepository.countEmployee();
         List<EmployeeGroupResponse> res = groupRepository.getEmployee(groupId, groupName, laborCode, employeeName, pageSize, offset);
         Pageable pageable = PageRequest.of(offset, pageSize);
-        final Page<EmployeeGroupResponse> page = new PageImpl<>(res, pageable, countEmployee);
-        return new PageResponse<>(page);
+        final Page<EmployeeGroupResponse> page = new PageImpl<>(res, pageable, 0);
+        return new PageResponse<>(page, (long) countEmployee);
     }
 }

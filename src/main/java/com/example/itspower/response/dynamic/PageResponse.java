@@ -17,10 +17,10 @@ public class PageResponse<T>{
     private Integer currentPage;
     private Integer pageSize;
 
-    public PageResponse(Page<T> page){
+    public PageResponse(Page<T> page,Long totalElements){
         this.content = page.getContent();
         this.totalPages = page.getTotalPages();
-        this.totalElements = page.getTotalElements();
+        this.totalElements =totalElements;
         this.currentPage = page.getNumber() + 1;
         this.pageSize = page.getPageable().getPageSize();
     }
