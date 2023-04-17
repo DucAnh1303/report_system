@@ -5,7 +5,6 @@ import com.example.itspower.response.user.ListUserResponse;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 
 @AllArgsConstructor

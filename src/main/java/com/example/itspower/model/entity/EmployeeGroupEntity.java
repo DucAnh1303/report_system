@@ -24,7 +24,6 @@ import javax.persistence.*;
         "(:laborCode IS NULL OR ge.labor_code LIKE CONCAT('%',:laborCode,'%'))"+
         " ORDER BY gr.group_name ASC ",
         resultSetMapping = "getEmployee"
-
         )
 @Entity
 @Table(name = "group_Employee")

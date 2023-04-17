@@ -94,7 +94,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/getAllUser")
+    @PostMapping("/getAllUser")
     @CrossOrigin
     public ResponseEntity<Object> getAllDemarcation(@RequestBody UserSearchRequest request) {
         try {

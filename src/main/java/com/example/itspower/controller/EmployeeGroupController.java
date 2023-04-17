@@ -7,6 +7,8 @@ import com.example.itspower.response.BaseResponse;
 import com.example.itspower.response.SuccessResponse;
 import com.example.itspower.service.EmployeeGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -53,13 +55,14 @@ public class EmployeeGroupController {
         }
     }
 
-    @GetMapping("/getEmployee")
+    @PostMapping("/getEmployee")
     @CrossOrigin
-    public ResponseEntity<BaseResponse<Object>> searchAllViewDetails(@RequestBody SearchEmployeeRequest searchForm) {
+    public ResponseEntity<BaseResponse<Object>> searchAllViewDetails(@RequestBody SearchEmployeeRequest searchForm,@RequestParam(defaultValue = "1") Integer pageNo,
+                                                                     @RequestParam(defaultValue = "10") Integer pageSize) {
         try {
+            Pageable pageable = PageRequest.of(pageNo-1, pageSize);
             BaseResponse<Object> res = new BaseResponse<>(HttpStatus.CREATED.value(),
-                    SUCCESS, employeeGroupService.
-                    getEmployee( searchForm.getGroupName(), searchForm.getGroupId(), searchForm.getLaborCode()));
+                    SUCCESS, employeeGroupService.getEmployee(searchForm.getGroupName(),searchForm.getGroupId(), searchForm.getLaborCode(),pageable));
             return ResponseEntity.status(HttpStatus.OK).body(res);
         } catch (Exception e) {
             throw new ReasonException(HttpStatus.BAD_REQUEST.value(), ERROR, e);
