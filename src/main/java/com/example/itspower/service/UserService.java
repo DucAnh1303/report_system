@@ -8,8 +8,6 @@ import com.example.itspower.response.dynamic.PageResponse;
 import com.example.itspower.response.search.UserRequest;
 import org.springframework.http.ResponseEntity;
 
-import java.util.List;
-
 public interface UserService {
     SuccessResponse<Object> save(UserRequest userRequest);
 
@@ -17,7 +15,7 @@ public interface UserService {
 
     UserDto loginInfor(String userLogin);
 
-    void delete(List<Integer> ids, String userName);
+    void delete(Integer id, String userName);
 
     boolean isCheckReport(int groupId);
     PageResponse getAllUser(UserSearchRequest request, int pageSize, int pageNo);

@@ -1,10 +1,7 @@
 package com.example.itspower.model.entity;
-
 import com.example.itspower.model.resultset.RestDto;
 import lombok.Data;
-
 import javax.persistence.*;
-
 @Entity
 @Table(name = "rest")
 @Data

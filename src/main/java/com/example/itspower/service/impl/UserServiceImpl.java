@@ -97,15 +97,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void delete(List<Integer> ids, String userName) {
+    public void delete(Integer id, String userName) {
         try {
-            UserDetails userDetails = userLoginConfig.loadUserByUsername("admin");
-            if (userName.equals(userDetails.getUsername())) {
-                for (int userId : ids) {
-                    userGroupRepository.deleteGroupUser(userId);
-                }
-                userRepository.deleteIds(ids);
-            }
+            userGroupRepository.deleteGroupUser(id);
+            userRepository.deleteIds(id);
         } catch (Exception e) {
             throw new RuntimeException("delete not success");
         }

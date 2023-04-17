@@ -29,8 +29,8 @@ public interface UserJpaRepository extends JpaRepository<UserEntity, Integer>, J
 
     @Transactional
     @Modifying
-    @Query(value = "DELETE FROM user WHERE id in(:ids)", nativeQuery = true)
-    void deleteByIds(@Param("ids") List<Integer> ids);
+    @Query(value = "DELETE FROM user WHERE id = :ids", nativeQuery = true)
+    void deleteByIds(@Param("ids") Integer ids);
 
     @Query(value = "select count(*) from user ", nativeQuery = true)
     int countUser();
