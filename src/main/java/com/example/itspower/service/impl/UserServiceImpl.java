@@ -79,12 +79,12 @@ public class UserServiceImpl implements UserService {
     public ResponseEntity<Object> update(UserUpdateRequest userUpdateRequest, int id) {
         try {
             UserDetails userEntity = userLoginConfig.loadUserById(id);
-            UserEntity user = new UserEntity();
+            UserEntity user = userJpaRepository.findById(id).get();
             Optional<UserGroupEntity> userGroupEntity = userGroupRepository.finByUserId(id);
             Optional<GroupEntity> groupEntity = groupRoleRepository.findById(userGroupEntity.get().getGroupId());
             user.setId(id);
             user.setUserLogin(userEntity.getUsername());
-            user.setPassword(userEntity.getPassword());
+            user.setPassword(passwordEncoder.encode(userEntity.getPassword()));
             user.setEdit(userUpdateRequest.isEdit());
             user.setView(userUpdateRequest.isView());
             user.setReport(userUpdateRequest.isReport());
