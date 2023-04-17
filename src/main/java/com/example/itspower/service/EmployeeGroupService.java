@@ -1,7 +1,7 @@
 package com.example.itspower.service;
 
 import com.example.itspower.request.userrequest.addUserRequest;
-import com.example.itspower.response.employee.EmployeeGroupResponse;
+import com.example.itspower.response.dynamic.PageResponse;
 
 import java.util.List;
 
@@ -10,5 +10,5 @@ public interface EmployeeGroupService {
 
     void delete(List<Integer> ids);
 
-    List<EmployeeGroupResponse> getEmployee(Integer limit,String groupName,Integer groupId,String laborCode);
+    PageResponse getEmployee(String groupName, Integer groupId, String laborCode, String employeeName, int pageSize, int pageNo);
 }

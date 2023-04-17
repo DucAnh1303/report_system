@@ -21,11 +21,18 @@ public interface GroupJpaRepository extends JpaRepository<GroupEntity, Integer> 
 
     List<GroupEntity> findAllByParentId(int parentId);
 
+    @Query(value = "select * from group_role where group_name like concat('%',:groupName,'%') LIMIT :pageSize OFFSET :pageNo ", nativeQuery = true)
+    List<GroupEntity> findByGroupName(@Param("groupName") String groupName
+            ,@Param("pageSize") int pageSize
+            ,@Param("pageNo")  int pageNo);
+
+    @Query(value = "select count(*) from group_role", nativeQuery = true)
+    int countGroupRole();
 
     @Transactional
     @Modifying
     @Query(value = "Delete FROM group_role where id =:groupId ", nativeQuery = true)
-    void deleteByGroupName( @Param("groupId") Integer groupId);
+    void deleteByGroupName(@Param("groupId") Integer groupId);
 
     List<GroupEntity> findAllByParentIdIsNull();
 

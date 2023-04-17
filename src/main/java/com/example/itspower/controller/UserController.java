@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.GeneralSecurityException;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin
@@ -50,6 +51,7 @@ public class UserController {
             throw new GeneralSecurityException(ex.getMessage());
         }
     }
+
     @PostMapping("/api/update")
     @CrossOrigin
     public ResponseEntity<Object> update(@Valid @RequestBody UserUpdateRequest userRequest, @RequestParam("userId") int id) {
@@ -88,17 +90,20 @@ public class UserController {
             String newToken = jwtToken.generateToken(userDetails);
             UserDto loginInfor = userService.loginInfor(userDetails.getUsername());
             boolean checkReport = userService.isCheckReport(loginInfor.getGroupId());
-            return ResponseEntity.status(HttpStatus.OK).body(new SuccessResponse<>(HttpStatus.OK.value(), "login success", new UserRefreshToken(BEARER, newToken,loginInfor,userDetails.getUsername(),checkReport)));
+            return ResponseEntity.status(HttpStatus.OK).body(new SuccessResponse<>(HttpStatus.OK.value(), "login success", new UserRefreshToken(BEARER, newToken, loginInfor, userDetails.getUsername(), checkReport)));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new SuccessResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "login is not success", null));
         }
     }
 
-    @GetMapping("/getAllUser")
+    @PostMapping("/getAllUser")
     @CrossOrigin
-    public ResponseEntity<Object> getAllDemarcation(@RequestParam("limit") Integer limit,@RequestBody UserSearchRequest request) {
+    public Object getAllDemarcation(@RequestBody Optional<UserSearchRequest> request,
+                                    @RequestParam(defaultValue = "10") int pageSize,
+                                    @RequestParam(defaultValue = "1") int pageNo) {
         try {
-            return ResponseEntity.ok(userService.getAllUser(limit,request));
+            UserSearchRequest searchForm = request.orElse(new UserSearchRequest());
+            return ResponseEntity.ok(userService.getAllUser(searchForm, pageSize, pageNo));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }

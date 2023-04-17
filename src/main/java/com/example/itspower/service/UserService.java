@@ -4,8 +4,8 @@ import com.example.itspower.model.resultset.UserDto;
 import com.example.itspower.request.search.UserSearchRequest;
 import com.example.itspower.request.userrequest.UserUpdateRequest;
 import com.example.itspower.response.SuccessResponse;
+import com.example.itspower.response.dynamic.PageResponse;
 import com.example.itspower.response.search.UserRequest;
-import com.example.itspower.response.user.ListUserResponse;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -20,5 +20,5 @@ public interface UserService {
     void delete(List<Integer> ids, String userName);
 
     boolean isCheckReport(int groupId);
-    List<ListUserResponse> getAllUser(Integer limit, UserSearchRequest request);
+    PageResponse getAllUser(UserSearchRequest request, int pageSize, int pageNo);
 }
