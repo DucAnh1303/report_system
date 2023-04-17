@@ -6,6 +6,8 @@ import com.example.itspower.model.resultset.RootNameDto;
 import com.example.itspower.model.resultset.ViewAllDto;
 import com.example.itspower.response.group.ViewDetailGroupResponse;
 import com.example.itspower.response.group.ViewGroupRoot;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -20,7 +22,8 @@ import java.util.Optional;
 public interface GroupJpaRepository extends JpaRepository<GroupEntity, Integer> {
 
     List<GroupEntity> findAllByParentId(int parentId);
-
+    @Query(value = "select * from group_role where group_name like concat('%',?1,'%')",nativeQuery = true)
+    Page<GroupEntity> findByGroupName(String groupName, Pageable pageable);
 
     @Transactional
     @Modifying

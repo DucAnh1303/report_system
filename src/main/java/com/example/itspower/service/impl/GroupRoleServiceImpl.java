@@ -42,9 +42,9 @@ public class GroupRoleServiceImpl implements GroupRoleService {
     }
 
     @Override
-    public Page<GroupEntity> getAllDamercation(Pageable pageable) {
+    public Page<GroupEntity> getAllDamercation(String groupName,Pageable pageable) {
         try{
-            Page<GroupEntity> findAll = groupJpaRepository.findAll(pageable);
+            Page<GroupEntity> findAll = groupJpaRepository.findByGroupName(groupName,pageable);
             return findAll;
         }catch (Exception e){
             throw new RuntimeException(e.getMessage());

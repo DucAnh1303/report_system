@@ -13,7 +13,7 @@ import java.util.List;
 public interface GroupRoleService {
     List<GroupRoleResponse> searchAll();
 
-    Page<GroupEntity> getAllDamercation(Pageable pageable);
+    Page<GroupEntity> getAllDamercation(String groupName,Pageable pageable);
 
     List<Integer> searchAllDeleteTM();
 

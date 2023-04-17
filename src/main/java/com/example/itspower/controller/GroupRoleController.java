@@ -108,10 +108,11 @@ public class GroupRoleController {
     @GetMapping("/groupRole/getAllDemarcation")
     @CrossOrigin
     public ResponseEntity<Object> getAllDemarcation( @RequestParam(defaultValue = "1") Integer pageNo,
-                                                     @RequestParam(defaultValue = "10") Integer pageSize) {
+                                                     @RequestParam(defaultValue = "10") Integer pageSize,
+                                                     @RequestParam("groupName")String groupName) {
         try {
             Pageable pageable = PageRequest.of(pageNo-1, pageSize);
-            return ResponseEntity.ok(groupRoleService.getAllDamercation(pageable));
+            return ResponseEntity.ok(groupRoleService.getAllDamercation(groupName,pageable));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
