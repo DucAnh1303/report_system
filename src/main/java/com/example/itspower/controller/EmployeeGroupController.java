@@ -58,7 +58,7 @@ public class EmployeeGroupController {
     @PostMapping("/getEmployee")
     @CrossOrigin
     public ResponseEntity<BaseResponse<Object>> searchAllViewDetails(@RequestBody SearchEmployeeRequest searchForm,@RequestParam(defaultValue = "1") Integer pageNo,
-                                                                     @RequestParam(defaultValue = "10") Integer pageSize) {
+                                                                     @RequestParam(defaultValue = "5") Integer pageSize) {
         try {
             Pageable pageable = PageRequest.of(pageNo-1, pageSize);
             BaseResponse<Object> res = new BaseResponse<>(HttpStatus.CREATED.value(),
