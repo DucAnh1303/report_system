@@ -27,6 +27,9 @@ public class RestRepository {
             RestEntity entity = new RestEntity();
             entity.setRestName(request.getRestName());
             entity.setReasonId(request.getReasonId());
+            entity.setEmployeeLabor(request.getRestEmployeeLabor());
+            entity.setWorkTime(request.getWorkTime());
+            entity.setSession(request.getSession());
             entity.setReportId(reportId);
             restEntities.add(entity);
         }
@@ -46,12 +49,18 @@ public class RestRepository {
                     entity.setRestName(request.getRestName());
                     entity.setReasonId(request.getReasonId());
                     entity.setReportId(reportId);
+                    entity.setEmployeeLabor(request.getRestEmployeeLabor());
+                    entity.setWorkTime(request.getWorkTime());
+                    entity.setSession(request.getSession());
                     restEntities.add(entity);
                 } else {
                     entity.setRestId(request.getRestId());
                     entity.setRestName(request.getRestName());
                     entity.setReasonId(request.getReasonId());
                     entity.setReportId(reportId);
+                    entity.setEmployeeLabor(request.getRestEmployeeLabor());
+                    entity.setWorkTime(request.getWorkTime());
+                    entity.setSession(request.getSession());
                     restEntities.add(entity);
                 }
             }
@@ -60,15 +69,7 @@ public class RestRepository {
         return restJpaRepository.saveAll(restEntities);
     }
 
-    public int findByReport(Integer reportId) {
-        return restJpaRepository.findByCount(reportId);
-    }
-
-    public void deleteRestReportId(Integer reportId) {
-        restJpaRepository.deleteByReportId(reportId);
-    }
-
     public void deleteRestIdsAndReportId(Integer reportId, List<Integer> restIds) {
-        restJpaRepository.deleteByReportIdAndRestIdIn( reportId,restIds);
+        restJpaRepository.deleteByReportIdAndRestIdIn(reportId, restIds);
     }
 }
