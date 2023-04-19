@@ -1,7 +1,6 @@
 package com.example.itspower.service.impl;
 
 import com.example.itspower.component.util.DateUtils;
-import com.example.itspower.model.entity.GroupEntity;
 import com.example.itspower.model.entity.ReportEntity;
 import com.example.itspower.model.entity.RiceEntity;
 import com.example.itspower.model.entity.TransferEntity;
@@ -46,15 +45,8 @@ public class ReportServiceImpl implements ReportService {
         ReportDto reportDto = reportRepository.reportDto(reportDate, groupId);
         List<RestDto> restDtos = restRepository.getRests(reportDto.getId());
         List<TransferEntity> transferEntities = transferRepository.findByReportId(reportDto.getId());
-        for (TransferEntity transfer : transferEntities) {
-            Optional<GroupEntity> groupEntity = groupRoleRepository.findById(transfer.getGroupId());
-            if (groupEntity.isPresent()) {
-                transfer.setParentId(groupEntity.get().getParentId());
-                transfer.setGroupName(groupEntity.get().getGroupName());
-            }
-        }
-        RiceEntity riceEntity = riceRepository.getByRiceDetail(reportDto.getId());
-        return new ReportResponse(reportDto, riceEntity, restDtos, transferEntities);
+        Optional<RiceEntity> riceEntity = riceRepository.getByRiceDetail(reportDto.getId());
+        return new ReportResponse(reportDto, riceEntity.get(), restDtos, transferEntities);
     }
 
     @Override
@@ -68,15 +60,9 @@ public class ReportServiceImpl implements ReportService {
             return new SuccessResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "report date is exits", HttpStatus.INTERNAL_SERVER_ERROR.name());
         }
         ReportEntity reportEntity = reportRepository.saveReport(request, groupId);
-        if (request.getRiceRequests().getRiceVip() != 0 || request.getRiceRequests().getRiceCus() != 0 || request.getRiceRequests().getRiceEmp() != 0) {
-            riceRepository.saveRice(request.getRiceRequests(), reportEntity.getId());
-        }
-        if (request.getRestRequests().size() != 0) {
-            restRepository.saveRest(request.getRestRequests(), reportEntity.getId());
-        }
-        if (request.getTransferRequests().size() != 0) {
-            transferRepository.saveTransfer(request.getTransferRequests(), reportEntity.getId());
-        }
+        riceRepository.saveRice(request.getRiceRequests(), reportEntity.getId());
+        restRepository.saveRest(request.getRestRequests(), reportEntity.getId());
+        transferRepository.saveTransfer(request.getTransferRequests(), reportEntity.getId());
         return ResponseEntity.ok(new SuccessResponse<>(HttpStatus.CREATED.value(), "report success", reportDto(DateUtils.formatDate(reportEntity.getReportDate()), reportEntity.getGroupId())));
     }
 

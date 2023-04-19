@@ -8,9 +8,8 @@ import com.example.itspower.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import javax.validation.Valid;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -37,7 +36,7 @@ public class ReportController {
 
     @PostMapping("/report/save")
     @CrossOrigin
-    public ResponseEntity<Object> save(@Validated @RequestBody ReportRequest reportRequest, @RequestParam("groupId") int groupId) throws GeneralException {
+    public ResponseEntity<Object> save(@RequestBody ReportRequest reportRequest, @RequestParam("groupId") int groupId) throws GeneralException {
         try {
             return ResponseEntity.ok(reportService.save(reportRequest, groupId));
         } catch (Exception e) {
@@ -47,7 +46,7 @@ public class ReportController {
 
     @PostMapping("/report/update")
     @CrossOrigin
-    public ResponseEntity<Object> update(@Valid @RequestBody ReportRequest reportRequest, @RequestParam("groupId") int groupId) throws GeneralException {
+    public ResponseEntity<Object> update(@RequestBody ReportRequest reportRequest, @RequestParam("groupId") int groupId) throws GeneralException {
         try {
             return ResponseEntity.ok(reportService.update(reportRequest, groupId));
         } catch (Exception e) {

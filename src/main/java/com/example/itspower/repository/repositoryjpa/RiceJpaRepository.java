@@ -6,10 +6,11 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 @Repository
 public interface RiceJpaRepository extends JpaRepository<RiceEntity, Integer> {
-    RiceEntity findByReportId(Integer reportId);
+    Optional<RiceEntity> findByReportId(Integer reportId);
     @Transactional
     @Modifying
     void deleteByReportId(Integer reportId);

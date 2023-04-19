@@ -86,7 +86,7 @@ public class ReportEntity {
     @Column(name = "student_num")
     private Integer studentNum = 0;
     @Column(name = "rest_num")
-    private Integer restNum = 0;
+    private float restNum = 0;
     @Column(name = "group_id")
     private Integer groupId;
     @Column(name = "demarcation")
@@ -96,5 +96,5 @@ public class ReportEntity {
     @Column(name = "professionNotLabor")
     private Integer professionNotLabor = 0;
     @Column(name = "labor_productivity")
-    private Integer laborProductivity = 0;
+    private float laborProductivity ;
 }
