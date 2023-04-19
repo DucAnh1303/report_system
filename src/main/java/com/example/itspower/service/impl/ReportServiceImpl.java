@@ -67,28 +67,6 @@ public class ReportServiceImpl implements ReportService {
         if (entity.isPresent()) {
             return new SuccessResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "report date is exits", HttpStatus.INTERNAL_SERVER_ERROR.name());
         }
-//        if (request.getRestNum() != request.getRestRequests().size()) {
-//            return new SuccessResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "size rest not equal size effective", HttpStatus.INTERNAL_SERVER_ERROR.name());
-//        }
-//        for (TransferRequest transferRequests : request.getTransferRequests()) {
-//            if (transferRequests.getGroupId() != null) {
-//                if (groupId == transferRequests.getGroupId().intValue()) {
-//                    return new SuccessResponse<>(HttpStatus.BAD_REQUEST.value(), "group name not current group user!", null);
-//                }
-//            }
-//        }
-//        boolean isCheck = check(request.getRiceRequests().getRiceCus(), request.getRiceRequests().getRiceEmp(), request.getRiceRequests().getRiceVip());
-//        if (isCheck) {
-//            return new SuccessResponse<>(HttpStatus.BAD_REQUEST.value(), "rise < 0", null);
-//        }
-//        boolean isCheckReport = checkReport(request);
-//        if (isCheckReport) {
-//            return new SuccessResponse<>(HttpStatus.BAD_REQUEST.value(), "partTimeNum or studentNum <0", null);
-//        }
-//        boolean isCheckTransfer = checkTransfer(request.getTransferRequests());
-//        if (isCheckTransfer) {
-//            return new SuccessResponse<>(HttpStatus.BAD_REQUEST.value(), "TransferNum <0", null);
-//        }
         ReportEntity reportEntity = reportRepository.saveReport(request, groupId);
         if (request.getRiceRequests().getRiceVip() != 0 || request.getRiceRequests().getRiceCus() != 0 || request.getRiceRequests().getRiceEmp() != 0) {
             riceRepository.updateRice(request.getRiceRequests(), reportEntity.getId());
@@ -109,28 +87,6 @@ public class ReportServiceImpl implements ReportService {
         if (entity.isEmpty()) {
             return new SuccessResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "report is not Exits", HttpStatus.INTERNAL_SERVER_ERROR.name());
         }
-//        for (TransferRequest transferRequests : request.getTransferRequests()) {
-//            if (transferRequests.getTransferId() == 0) {
-//                return new SuccessResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "transferId not exits", null);
-//            }
-//            if (transferRequests.getGroupId() != null) {
-//                if (groupId == transferRequests.getGroupId().intValue()) {
-//                    return new SuccessResponse<>(HttpStatus.BAD_REQUEST.value(), "group name not current group user!", null);
-//                }
-//            }
-//        }
-//        boolean isCheck = check(request.getRiceRequests().getRiceCus(), request.getRiceRequests().getRiceEmp(), request.getRiceRequests().getRiceVip());
-//        if (isCheck) {
-//            return new SuccessResponse<>(HttpStatus.BAD_REQUEST.value(), "rise < 0", null);
-//        }
-//        boolean isCheckReport = checkReport(request);
-//        if (isCheckReport) {
-//            return new SuccessResponse<>(HttpStatus.BAD_REQUEST.value(), "partTimeNum or studentNum <0", null);
-//        }
-//        boolean isCheckTransfer = checkTransfer(request.getTransferRequests());
-//        if (isCheckTransfer) {
-//            return new SuccessResponse<>(HttpStatus.BAD_REQUEST.value(), "TransferNum <0", null);
-//        }
         ReportEntity reportEntity = reportRepository.updateReport(request, groupId);
         if (request.getRiceRequests().getRiceId() != 0) {
             riceRepository.saveRice(request.getRiceRequests(), reportEntity.getId());
