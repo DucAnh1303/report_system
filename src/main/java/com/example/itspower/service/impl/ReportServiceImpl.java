@@ -1,14 +1,15 @@
 package com.example.itspower.service.impl;
 
 import com.example.itspower.component.util.DateUtils;
+import com.example.itspower.model.entity.GroupEntity;
 import com.example.itspower.model.entity.ReportEntity;
 import com.example.itspower.model.entity.RiceEntity;
 import com.example.itspower.model.entity.TransferEntity;
 import com.example.itspower.model.resultset.ReportDto;
 import com.example.itspower.model.resultset.RestDto;
 import com.example.itspower.repository.*;
+import com.example.itspower.repository.repositoryjpa.EmployeeGroupRepository;
 import com.example.itspower.request.ReportRequest;
-import com.example.itspower.request.TransferRequest;
 import com.example.itspower.response.SuccessResponse;
 import com.example.itspower.response.report.ReportResponse;
 import com.example.itspower.service.ReportService;
@@ -35,6 +36,8 @@ public class ReportServiceImpl implements ReportService {
     private GroupRoleRepository groupRoleRepository;
     @Autowired
     private RiceRepository riceRepository;
+    @Autowired
+    private EmployeeGroupRepository employeeGroupRepository;
 
     @Override
     public Object reportDto(String reportDate, int groupId) {
@@ -92,24 +95,13 @@ public class ReportServiceImpl implements ReportService {
         // report id
     }
 
-    private boolean check(int riceCus, int riseEmp, int riseVip) {
-        if (riceCus < 0 || riseEmp < 0 || riseVip < 0) {
-            return true;
-        }
-        return false;
-    }
 
-    private boolean checkReport(ReportRequest request) {
-        if (request.getPartTimeNum() < 0 || request.getStudentNum() < 0) {
-            return true;
+    public void deleteRestEmployee(Integer groupId, List<Integer> groupEmpId) {
+        Optional<GroupEntity> groupEntity = groupRoleRepository.findById(groupId);
+        if (groupEntity.isPresent()) {
+            employeeGroupRepository.deleteByGroupIdAndIdIn(groupId, groupEmpId);
+            groupEntity.get().setDemarcationAvailable(groupEntity.get().getDemarcationAvailable() - groupEmpId.size());
+            groupRoleRepository.save(groupEntity.get());
         }
-        return false;
-    }
-
-    private boolean checkTransfer(List<TransferRequest> request) {
-        if (request.get(0).getTransferNum() < 0 || request.get(1).getTransferNum() < 0) {
-            return true;
-        }
-        return false;
     }
 }

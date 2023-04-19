@@ -1,6 +1,7 @@
 package com.example.itspower.controller;
 
 import com.example.itspower.exception.GeneralException;
+import com.example.itspower.request.EmployeeGroupRequest;
 import com.example.itspower.request.ReportRequest;
 import com.example.itspower.request.RestRequestDelete;
 import com.example.itspower.response.SuccessResponse;
@@ -24,7 +25,7 @@ public class ReportController {
     @GetMapping("/report")
     @CrossOrigin
     public Object report(@RequestParam("reportDate") String reportDate, @RequestParam("groupId") int groupId) throws ParseException {
-        Date date=new SimpleDateFormat("yyyy/MM/dd").parse(reportDate);
+        Date date = new SimpleDateFormat("yyyy/MM/dd").parse(reportDate);
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date); // yourDate là thời gian hiện tại của bạn
         calendar.add(Calendar.HOUR_OF_DAY, 7); // thêm 7 giờ vào thời gian hiện tại
@@ -58,6 +59,13 @@ public class ReportController {
     @CrossOrigin
     public ResponseEntity<Object> deleteRest(@RequestBody RestRequestDelete reportRequest) {
         reportService.deleteRestIdsAndReportId(reportRequest.getReportId(), reportRequest.getRestIds());
+        return ResponseEntity.ok(new SuccessResponse<>(HttpStatus.OK.value(), "delete success"));
+    }
+
+    @PostMapping("/report/delete-group-emp")
+    @CrossOrigin
+    public ResponseEntity<Object> deleteGroupEmp(@RequestBody EmployeeGroupRequest groupRequest) {
+        reportService.deleteRestEmployee(groupRequest.getGroupId(), groupRequest.getGroupEmpId());
         return ResponseEntity.ok(new SuccessResponse<>(HttpStatus.OK.value(), "delete success"));
     }
 }

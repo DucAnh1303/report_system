@@ -42,6 +42,10 @@ public class GroupRoleRepository {
         return groupJpaRepository.save(entity);
     }
 
+    public GroupEntity save(GroupEntity groupEntity) {
+        return groupJpaRepository.save(groupEntity);
+    }
+
     public List<String> getName() {
         return groupJpaRepository.getAllByGroupName();
     }
