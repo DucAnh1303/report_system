@@ -74,13 +74,13 @@ public class ReportServiceImpl implements ReportService {
             return new SuccessResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "report is not Exits", HttpStatus.INTERNAL_SERVER_ERROR.name());
         }
         ReportEntity reportEntity = reportRepository.updateReport(request, groupId);
-        if (request.getRiceRequests().getRiceId() != 0) {
+        if (request.getRiceRequests() != null && request.getRiceRequests().getRiceId() != 0) {
             riceRepository.updateRice(request.getRiceRequests(), reportEntity.getId());
         }
-        if (request.getRestRequests().size() != 0) {
+        if (request.getTransferRequests() != null && request.getRestRequests().size() != 0) {
             restRepository.updateRest(request.getRestRequests(), reportEntity.getId());
         }
-        if (request.getTransferRequests().size() != 0) {
+        if (request.getTransferRequests() != null && request.getTransferRequests().size() != 0) {
             transferRepository.updateTransfer(request.getTransferRequests(), reportEntity.getId());
         }
         return ResponseEntity.ok(new SuccessResponse<>(HttpStatus.OK.value(), "update report success", reportDto(DateUtils.formatDate(reportEntity.getReportDate()), reportEntity.getGroupId())));
