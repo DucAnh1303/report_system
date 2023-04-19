@@ -32,7 +32,7 @@ public class ReportController {
         Date newDate = calendar.getTime();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String strDate = dateFormat.format(newDate);
-        return reportService.reportDto(reportDate, groupId);
+        return reportService.reportDto(strDate, groupId);
     }
 
     @PostMapping("/report/save")

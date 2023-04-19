@@ -58,7 +58,11 @@ public class ReportRepository {
         reportEntity.setStudentNum(request.getStudentNum());
         reportEntity.setLaborProductivity(request.getLaborProductivity());
         reportEntity.setPartTimeNum(request.getPartTimeNum());
-        reportEntity.setReportDate(new Date());
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date()); // yourDate là thời gian hiện tại của bạn
+        calendar.add(Calendar.HOUR_OF_DAY, 7); // thêm 7 giờ vào thời gian hiện tại
+        Date newDate = calendar.getTime();
+        reportEntity.setReportDate(newDate);
         return reportJpaRepository.save(reportEntity);
     }
 
