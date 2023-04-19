@@ -24,5 +24,5 @@ public interface EmployeeGroupRepository extends JpaRepository<EmployeeGroupEnti
     int countEmployee();
     @Transactional
     @Modifying
-    void deleteByGroupIdAndIdIn(Integer groupId,List<Integer> groupEmpId);
+    void deleteByGroupIdAndLaborCodeIn(Integer groupId,List<String> laborCode);
 }

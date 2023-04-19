@@ -65,7 +65,7 @@ public class ReportController {
     @PostMapping("/report/delete-group-emp")
     @CrossOrigin
     public ResponseEntity<Object> deleteGroupEmp(@RequestBody EmployeeGroupRequest groupRequest) {
-        reportService.deleteRestEmployee(groupRequest.getGroupId(), groupRequest.getGroupEmpId());
+        reportService.deleteRestEmployee(groupRequest.getGroupId(), groupRequest.getLaborEmp());
         return ResponseEntity.ok(new SuccessResponse<>(HttpStatus.OK.value(), "delete success"));
     }
 }

@@ -77,30 +77,33 @@ public class ReportServiceImpl implements ReportService {
             return new SuccessResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "report is not Exits", HttpStatus.INTERNAL_SERVER_ERROR.name());
         }
         ReportEntity reportEntity = reportRepository.updateReport(request, groupId);
-        if (request.getRiceRequests() != null && request.getRiceRequests().getRiceId() != 0) {
+        if (request.getRiceRequests().getRiceId() != null && request.getRiceRequests().getRiceId() != 0) {
             riceRepository.updateRice(request.getRiceRequests(), reportEntity.getId());
         }
-        if (request.getTransferRequests() != null && request.getRestRequests().size() != 0) {
-            restRepository.updateRest(request.getRestRequests(), reportEntity.getId());
-        }
-        if (request.getTransferRequests() != null && request.getTransferRequests().size() != 0) {
-            transferRepository.updateTransfer(request.getTransferRequests(), reportEntity.getId());
-        }
+        request.getRestRequests().forEach(z -> {
+            if (z.getRestId() != null && z.getRestId() != 0) {
+                restRepository.updateRest(request.getRestRequests(), reportEntity.getId());
+            }
+        });
+        request.getTransferRequests().forEach(i -> {
+            if (i.getTransferId() != null && i.getTransferId() != 0) {
+                transferRepository.updateTransfer(request.getTransferRequests(), reportEntity.getId());
+            }
+        });
         return ResponseEntity.ok(new SuccessResponse<>(HttpStatus.OK.value(), "update report success", reportDto(DateUtils.formatDate(reportEntity.getReportDate()), reportEntity.getGroupId())));
     }
 
     @Override
     public void deleteRestIdsAndReportId(Integer reportId, List<Integer> restIds) {
         restRepository.deleteRestIdsAndReportId(reportId, restIds);
-        // report id
     }
 
 
-    public void deleteRestEmployee(Integer groupId, List<Integer> groupEmpId) {
+    public void deleteRestEmployee(Integer groupId, List<String> laborEmp) {
         Optional<GroupEntity> groupEntity = groupRoleRepository.findById(groupId);
         if (groupEntity.isPresent()) {
-            employeeGroupRepository.deleteByGroupIdAndIdIn(groupId, groupEmpId);
-            groupEntity.get().setDemarcationAvailable(groupEntity.get().getDemarcationAvailable() - groupEmpId.size());
+            employeeGroupRepository.deleteByGroupIdAndLaborCodeIn(groupId, laborEmp);
+            groupEntity.get().setDemarcationAvailable(groupEntity.get().getDemarcationAvailable() - laborEmp.size());
             groupRoleRepository.save(groupEntity.get());
         }
     }

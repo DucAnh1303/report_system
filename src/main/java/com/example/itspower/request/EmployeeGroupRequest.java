@@ -7,5 +7,5 @@ import java.util.List;
 @Data
 public class EmployeeGroupRequest {
     private Integer groupId;
-    private List<Integer> groupEmpId;
+    private List<String> laborEmp;
 }
