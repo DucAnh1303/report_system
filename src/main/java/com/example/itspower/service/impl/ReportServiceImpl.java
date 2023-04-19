@@ -69,13 +69,13 @@ public class ReportServiceImpl implements ReportService {
         }
         ReportEntity reportEntity = reportRepository.saveReport(request, groupId);
         if (request.getRiceRequests().getRiceVip() != 0 || request.getRiceRequests().getRiceCus() != 0 || request.getRiceRequests().getRiceEmp() != 0) {
-            riceRepository.updateRice(request.getRiceRequests(), reportEntity.getId());
+            riceRepository.saveRice(request.getRiceRequests(), reportEntity.getId());
         }
         if (request.getRestRequests().size() != 0) {
-            restRepository.updateRest(request.getRestRequests(), reportEntity.getId());
+            restRepository.saveRest(request.getRestRequests(), reportEntity.getId());
         }
         if (request.getTransferRequests().size() != 0) {
-            transferRepository.updateTransfer(request.getTransferRequests(), reportEntity.getId());
+            transferRepository.saveTransfer(request.getTransferRequests(), reportEntity.getId());
         }
         return ResponseEntity.ok(new SuccessResponse<>(HttpStatus.CREATED.value(), "report success", reportDto(DateUtils.formatDate(reportEntity.getReportDate()), reportEntity.getGroupId())));
     }
@@ -89,13 +89,13 @@ public class ReportServiceImpl implements ReportService {
         }
         ReportEntity reportEntity = reportRepository.updateReport(request, groupId);
         if (request.getRiceRequests().getRiceId() != 0) {
-            riceRepository.saveRice(request.getRiceRequests(), reportEntity.getId());
+            riceRepository.updateRice(request.getRiceRequests(), reportEntity.getId());
         }
         if (request.getRestRequests().size() != 0) {
-            restRepository.saveRest(request.getRestRequests(), reportEntity.getId());
+            restRepository.updateRest(request.getRestRequests(), reportEntity.getId());
         }
         if (request.getTransferRequests().size() != 0) {
-            transferRepository.saveTransfer(request.getTransferRequests(), reportEntity.getId());
+            transferRepository.updateTransfer(request.getTransferRequests(), reportEntity.getId());
         }
         return ResponseEntity.ok(new SuccessResponse<>(HttpStatus.OK.value(), "update report success", reportDto(DateUtils.formatDate(reportEntity.getReportDate()), reportEntity.getGroupId())));
     }
