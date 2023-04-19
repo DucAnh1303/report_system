@@ -137,14 +137,4 @@ public class GroupRoleController {
         }
     }
 
-//    @GetMapping("/groupRole/view-root")
-//    @CrossOrigin
-//    public ResponseEntity<Object> viewRoot() {
-//        try {
-//            return ResponseEntity.status(HttpStatus.OK).body(groupRoleService.getViewRoot());
-//        } catch (Exception e) {
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
-//        }
-//    }
-
 }
