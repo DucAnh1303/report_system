@@ -21,12 +21,17 @@ public class RiceRepository {
 
 
     public RiceEntity saveRice(RiceRequest riceRequest, Integer reportId) {
-        RiceEntity entity = new RiceEntity();
-        entity.setReportId(reportId);
-        entity.setRiceEmp(riceRequest.getRiceEmp());
-        entity.setRiceCus(riceRequest.getRiceCus());
-        entity.setRiceVip(riceRequest.getRiceVip());
-        return riceJpaRepository.save(entity);
+        try{
+            RiceEntity entity = new RiceEntity();
+            entity.setReportId(reportId);
+            entity.setRiceEmp(riceRequest.getRiceEmp());
+            entity.setRiceCus(riceRequest.getRiceCus());
+            entity.setRiceVip(riceRequest.getRiceVip());
+            return riceJpaRepository.save(entity);
+        }catch (Exception e){
+            throw new RuntimeException(e.getMessage());
+        }
+
     }
     @Transactional
     public RiceEntity updateRice(RiceRequest riceRequest, Integer reportId) {

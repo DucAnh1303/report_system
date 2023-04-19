@@ -63,10 +63,10 @@ public class ReportServiceImpl implements ReportService {
         calendar.setTime(new Date());
         calendar.add(Calendar.HOUR_OF_DAY, 7); // thêm 7 giờ vào thời gian hiện tại
         Date newDate = calendar.getTime();
-//        Optional<ReportEntity> entity = reportRepository.findByReportDateAndGroupId(DateUtils.formatDate(newDate), groupId);
-//        if (entity.isPresent()) {
-//            return new SuccessResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "report date is exits", HttpStatus.INTERNAL_SERVER_ERROR.name());
-//        }
+        Optional<ReportEntity> entity = reportRepository.findByReportDateAndGroupId(DateUtils.formatDate(newDate), groupId);
+        if (entity.isPresent()) {
+            return new SuccessResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "report date is exits", HttpStatus.INTERNAL_SERVER_ERROR.name());
+        }
 //        if (request.getRestNum() != request.getRestRequests().size()) {
 //            return new SuccessResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "size rest not equal size effective", HttpStatus.INTERNAL_SERVER_ERROR.name());
 //        }
@@ -91,13 +91,13 @@ public class ReportServiceImpl implements ReportService {
 //        }
         ReportEntity reportEntity = reportRepository.saveReport(request, groupId);
         if (request.getRiceRequests().getRiceVip() != 0 || request.getRiceRequests().getRiceCus() != 0 || request.getRiceRequests().getRiceEmp() != 0) {
-            riceRepository.saveRice(request.getRiceRequests(), reportEntity.getId());
+            riceRepository.updateRice(request.getRiceRequests(), reportEntity.getId());
         }
         if (request.getRestRequests().size() != 0) {
-            restRepository.saveRest(request.getRestRequests(), reportEntity.getId());
+            restRepository.updateRest(request.getRestRequests(), reportEntity.getId());
         }
         if (request.getTransferRequests().size() != 0) {
-            transferRepository.saveTransfer(request.getTransferRequests(), reportEntity.getId());
+            transferRepository.updateTransfer(request.getTransferRequests(), reportEntity.getId());
         }
         return ResponseEntity.ok(new SuccessResponse<>(HttpStatus.CREATED.value(), "report success", reportDto(DateUtils.formatDate(reportEntity.getReportDate()), reportEntity.getGroupId())));
     }
@@ -106,9 +106,9 @@ public class ReportServiceImpl implements ReportService {
     @Transactional
     public Object update(ReportRequest request, int groupId) {
         Optional<ReportEntity> entity = reportRepository.findByIdAndGroupId(request.getId(), groupId);
-//        if (entity.isEmpty()) {
-//            return new SuccessResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "report is not Exits", HttpStatus.INTERNAL_SERVER_ERROR.name());
-//        }
+        if (entity.isEmpty()) {
+            return new SuccessResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "report is not Exits", HttpStatus.INTERNAL_SERVER_ERROR.name());
+        }
 //        for (TransferRequest transferRequests : request.getTransferRequests()) {
 //            if (transferRequests.getTransferId() == 0) {
 //                return new SuccessResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "transferId not exits", null);
