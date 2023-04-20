@@ -41,7 +41,7 @@ public class ViewController {
             calendar.setTime(date); // yourDate là thời gian hiện tại của bạn
             calendar.add(Calendar.HOUR_OF_DAY, 7); // thêm 7 giờ vào thời gian hiện tại
             Date newDate = calendar.getTime();
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String strDate = dateFormat.format(newDate);
             BaseResponse<Object> res = new BaseResponse<>(HttpStatus.CREATED.value(),
                     SUCCESS, viewDetailService.searchAllView(strDate));
