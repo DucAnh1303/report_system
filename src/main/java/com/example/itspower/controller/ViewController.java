@@ -27,13 +27,11 @@ public class ViewController {
     private ViewDetailService viewDetailService;
 
     @GetMapping("/all")
-    @CrossOrigin
     public ResponseEntity<Object> getAll(@RequestParam("date") String date) {
         return ResponseEntity.status(HttpStatus.OK).body(viewService.getView(date));
     }
 
     @GetMapping("/groupRoleViewDetails")
-    @CrossOrigin
     public ResponseEntity<BaseResponse<Object>> searchAllViewDetails(@RequestParam("reportDate") String reportDate) {
         try {
             Date date = new SimpleDateFormat("yyyy/MM/dd").parse(reportDate);
@@ -52,7 +50,6 @@ public class ViewController {
     }
 
     @GetMapping("/exportExcel")
-    @CrossOrigin
     public ResponseEntity<Object> exportExcel() {
         try {
             return null;

@@ -24,7 +24,6 @@ public class EmployeeGroupController {
     EmployeeGroupService employeeGroupService;
 
     @PostMapping("/save")
-    @CrossOrigin
     public SuccessResponse save(@RequestBody List<addUserRequest> addUser) {
         try {
             employeeGroupService.saveAll(addUser);
@@ -35,7 +34,6 @@ public class EmployeeGroupController {
     }
 
     @PostMapping("/update")
-    @CrossOrigin
     public SuccessResponse update(@RequestBody List<addUserRequest> addUser) {
         try {
             employeeGroupService.saveAll(addUser);
@@ -46,7 +44,6 @@ public class EmployeeGroupController {
     }
 
     @DeleteMapping("/delete")
-    @CrossOrigin
     public SuccessResponse delete(@RequestBody List<Integer> ids) {
         try {
             employeeGroupService.delete(ids);
@@ -57,7 +54,6 @@ public class EmployeeGroupController {
     }
 
     @PostMapping("/getEmployee")
-    @CrossOrigin
     public ResponseEntity<BaseResponse<Object>> searchAllViewDetails(@RequestBody Optional<SearchEmployeeRequest> searchForm,
                                                                      @RequestParam(defaultValue = "1") Integer pageNo,
                                                                      @RequestParam(defaultValue = "5") Integer pageSize) {

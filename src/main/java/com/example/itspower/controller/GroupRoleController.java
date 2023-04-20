@@ -24,7 +24,6 @@ public class GroupRoleController {
     private GroupRoleService groupRoleService;
 
     @GetMapping("/groupRole")
-    @CrossOrigin
     public ResponseEntity<BaseResponse<Object>> searchAll() {
         try {
             BaseResponse<Object> res = new BaseResponse<>(HttpStatus.CREATED.value(), SUCCESS, groupRoleService.searchAll());
@@ -35,7 +34,6 @@ public class GroupRoleController {
     }
 
     @GetMapping("/groupRoleDeleteTm")
-    @CrossOrigin
     public ResponseEntity<BaseResponse<Object>> searchAllDeleteTm() {
         try {
             BaseResponse<Object> res = new BaseResponse<>(HttpStatus.CREATED.value(), SUCCESS, groupRoleService.searchAllDeleteTM());
@@ -46,7 +44,6 @@ public class GroupRoleController {
     }
 
     @GetMapping("/groupRole/view-root")
-    @CrossOrigin
     public ResponseEntity<BaseResponse<Object>> count(@RequestParam("reportDate") String reportDate) {
         try {
             Date date = new SimpleDateFormat("yyyy/MM/dd").parse(reportDate);
@@ -65,7 +62,6 @@ public class GroupRoleController {
 
 
     @GetMapping("/getName")
-    @CrossOrigin
     public ResponseEntity<BaseResponse<Object>> getName() {
         try {
             BaseResponse<Object> res = new BaseResponse<>(HttpStatus.CREATED.value(), SUCCESS, groupRoleService.getName());
@@ -76,25 +72,21 @@ public class GroupRoleController {
     }
 
     @PostMapping("/groupRole/save")
-    @CrossOrigin
     public ResponseEntity<Object> save(@RequestBody GroupRoleRequest groupRoleRequest) {
         return ResponseEntity.status(HttpStatus.CREATED).body(groupRoleService.save(groupRoleRequest));
     }
 
     @GetMapping("/groupRoleDetails")
-    @CrossOrigin
     public ResponseEntity<Object> searchDetails(@Param("parentId") int parentId) {
         return ResponseEntity.status(HttpStatus.OK).body(groupRoleService.searchAllByParentId(parentId));
     }
 
     @GetMapping("/groupRoleRoot")
-    @CrossOrigin
     public ResponseEntity<Object> searchRoleRoot() {
         return ResponseEntity.status(HttpStatus.OK).body(groupRoleService.searchAllByParentIdIsNull());
     }
 
     @GetMapping("/groupRole/demarcation")
-    @CrossOrigin
     public ResponseEntity<Object> getByDemarcation(@RequestParam("groupId") Integer groupId) {
         try {
             return ResponseEntity.ok(groupRoleService.getDemarcationRes(groupId));
@@ -104,7 +96,6 @@ public class GroupRoleController {
     }
 
     @GetMapping("/groupRole/getAllDemarcation")
-    @CrossOrigin
     public ResponseEntity<Object> getAllDemarcation(@RequestParam(defaultValue = "1") Integer pageNo,
                                                     @RequestParam(defaultValue = "10") Integer pageSize,
                                                     @RequestParam(value = "groupName",required = false,defaultValue = "") String groupName) {
@@ -117,7 +108,6 @@ public class GroupRoleController {
 
 
     @GetMapping("/groupRole/update")
-    @CrossOrigin
     public ResponseEntity<Object> update(@RequestParam("id") Integer id, @RequestParam("demarcation") Integer demarcation) {
         try {
             return ResponseEntity.ok(groupRoleService.updateGroupRole(id, demarcation));
@@ -127,7 +117,6 @@ public class GroupRoleController {
     }
 
     @DeleteMapping("/groupRole/delete")
-    @CrossOrigin
     public ResponseEntity<Object> delete(@RequestParam("groupId") Integer groupId) {
         try {
             groupRoleService.delete(groupId);
