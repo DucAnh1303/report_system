@@ -1,7 +1,6 @@
 package com.example.itspower.repository;
 
 import com.example.itspower.exception.ResourceNotFoundException;
-import com.example.itspower.model.entity.GroupEntity;
 import com.example.itspower.model.entity.ReportEntity;
 import com.example.itspower.model.resultset.ReportDto;
 import com.example.itspower.repository.repositoryjpa.GroupJpaRepository;
@@ -30,7 +29,6 @@ public class ReportRepository {
 
     public ReportEntity saveReport(ReportRequest request, int groupId) {
         ReportEntity reportEntity = new ReportEntity();
-        Optional<GroupEntity> groupEntity = groupJpaRepository.findById(groupId);
         reportEntity.setDemarcation(request.getDemarcation());
         reportEntity.setGroupId(groupId);
         reportEntity.setRestNum(request.getRestNum());

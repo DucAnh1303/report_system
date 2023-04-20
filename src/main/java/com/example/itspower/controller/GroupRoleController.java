@@ -108,7 +108,7 @@ public class GroupRoleController {
 
 
     @GetMapping("/groupRole/update")
-    public ResponseEntity<Object> update(@RequestParam("id") Integer id, @RequestParam("demarcation") Integer demarcation) {
+    public ResponseEntity<Object> update(@RequestParam("id") Integer id, @RequestParam("demarcation") Float demarcation) {
         try {
             return ResponseEntity.ok(groupRoleService.updateGroupRole(id, demarcation));
         } catch (Exception e) {
