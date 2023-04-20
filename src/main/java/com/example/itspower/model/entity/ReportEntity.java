@@ -26,6 +26,8 @@ import java.util.Date;
                         @ColumnResult(name = "studentNum", type = Integer.class),
                         @ColumnResult(name = "totalRice", type = Integer.class),
                         @ColumnResult(name = "reportDate", type = Date.class),
+                        @ColumnResult(name = "professionNotLabor", type = Integer.class),
+                        @ColumnResult(name = "professionLabor", type = Integer.class),
                 }
         )
 )
@@ -54,7 +56,8 @@ import java.util.Date;
                 "(select ifNull(tr.transfer_num,0) from transfer tr where tr.report_id = r.id and tr.`type` = 1) as transferNum,  " +
                 "(select ifNull(tr1.transfer_num,0) from transfer tr1 where tr1.report_id = r.id and tr1.`type` = 2) as supportNum, " +
                 "r.rest_num  as restNum, r.part_time_num  as partTimeNum, r.student_num  as studentNum," +
-                "(IFNULL(r3.rice_cus,0) + IFNULL(r3.rice_emp,0) + IFNULL(r3.rice_vip,0)) as totalRice,r.report_date as reportDate " +
+                "(IFNULL(r3.rice_cus,0) + IFNULL(r3.rice_emp,0) + IFNULL(r3.rice_vip,0)) as totalRice,r.report_date as reportDate, " +
+                "IFNULL(r.profession_not_labor,0) as professionNotLabor,IFNULL(r.profession_labor,0) as professionLabor   " +
                 "from report r  " +
                 "left join rice r3 on r3.report_id = r.id  " +
                 "where DATE_FORMAT(r.report_date, '%Y%m%d') = DATE_FORMAT(:reportDate, '%Y%m%d') AND r.group_id = :groupId ",

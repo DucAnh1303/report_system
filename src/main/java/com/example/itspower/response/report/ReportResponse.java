@@ -22,6 +22,8 @@ public class ReportResponse {
     private int partTimeNum;
     private int studentNum;
     private int totalRice;
+    private Integer professionNotLabor;
+    private Integer professionLabor;
     private String reportDate;
     private int groupId;
     private RiceEntity rice;
@@ -43,6 +45,8 @@ public class ReportResponse {
         this.rice = rice;
         this.rests = rests;
         this.transfers = transfers;
+        this.professionLabor = reportDto.getProfessionLabor();
+        this.professionNotLabor = reportDto.getProfessionNotLabor();
     }
 
 }
