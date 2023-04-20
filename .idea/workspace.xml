@@ -5,8 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d8e811f7-ab85-440d-81dd-29fe6388095e" name="Changes" comment="add api get All User">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/itspower/security/CorsConfiguration.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/5/4/547375c4ee03e73d0cda42fe83f3a204943be234" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/9/3/93e8de4cdb05ad2e7b599f6a09942919f1c1f5ae" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/b/6/b653f3290a231eac89ac27f11597e3be1749af57" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/itspower/controller/ReportController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/itspower/controller/ReportController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/itspower/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/itspower/security/SecurityConfig.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -140,11 +144,11 @@
       <recent name="D:\its-power\its-power\src\main\java\com\example\itspower\component\util" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.example.itspower.security" />
       <recent name="com.example.itspower.controller" />
       <recent name="com.example.itspower.repository" />
       <recent name="com.example.itspower.component.util" />
       <recent name="com.example.itspower.response" />
-      <recent name="com.example.itspower.type" />
     </key>
   </component>
   <component name="RunManager">
@@ -222,13 +226,6 @@
       <workItem from="1681643927378" duration="2863000" />
       <workItem from="1681957705853" duration="606000" />
       <workItem from="1681958506567" duration="699000" />
-    </task>
-    <task id="LOCAL-00030" summary="api report">
-      <created>1679408129489</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1679408129489</updated>
     </task>
     <task id="LOCAL-00031" summary="api report">
       <created>1679412428010</created>
@@ -566,7 +563,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681962212172</updated>
     </task>
-    <option name="localTasksCounter" value="79" />
+    <task id="LOCAL-00079" summary="add api get All User">
+      <created>1681962351713</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1681962351713</updated>
+    </task>
+    <option name="localTasksCounter" value="80" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

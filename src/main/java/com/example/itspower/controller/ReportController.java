@@ -20,7 +20,6 @@ public class ReportController {
     private ReportService reportService;
 
     @GetMapping("/report")
-    @CrossOrigin
     public Object report(@RequestParam("reportDate") String reportDate, @RequestParam("groupId") int groupId) throws ParseException {
         Date date = new SimpleDateFormat("yyyy/MM/dd").parse(reportDate);
         Calendar calendar = Calendar.getInstance();
@@ -33,7 +32,6 @@ public class ReportController {
     }
 
     @PostMapping("/report/save")
-    @CrossOrigin
     public ResponseEntity<Object> save(@RequestBody ReportRequest reportRequest, @RequestParam("groupId") int groupId) throws GeneralException {
         try {
             return ResponseEntity.ok(reportService.save(reportRequest, groupId));
@@ -43,7 +41,6 @@ public class ReportController {
     }
 
     @PostMapping("/report/update")
-    @CrossOrigin
     public ResponseEntity<Object> update(@RequestBody ReportRequest reportRequest, @RequestParam("groupId") int groupId) throws GeneralException {
         try {
             return ResponseEntity.ok(reportService.update(reportRequest, groupId));
@@ -53,14 +50,12 @@ public class ReportController {
     }
 
     @PostMapping("/report/delete-rest")
-    @CrossOrigin
     public ResponseEntity<Object> deleteRest(@RequestBody RestRequestDelete reportRequest) {
         reportService.deleteRestIdsAndReportId(reportRequest.getReportId(), reportRequest.getRestIds());
         return ResponseEntity.ok(new SuccessResponse<>(HttpStatus.OK.value(), "delete success"));
     }
 
     @PostMapping("/report/delete-group-emp")
-    @CrossOrigin
     public ResponseEntity<Object> deleteGroupEmp(@RequestBody EmployeeGroupRequest groupRequest) {
         reportService.deleteRestEmployee(groupRequest.getGroupId(), groupRequest.getLaborEmp());
         return ResponseEntity.ok(new SuccessResponse<>(HttpStatus.OK.value(), "delete success"));
