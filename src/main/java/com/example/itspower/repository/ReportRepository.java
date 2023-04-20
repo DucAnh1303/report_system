@@ -37,6 +37,8 @@ public class ReportRepository {
         reportEntity.setStudentNum(request.getStudentNum());
         reportEntity.setLaborProductivity(request.getLaborProductivity());
         reportEntity.setPartTimeNum(request.getPartTimeNum());
+        reportEntity.setProfessionLabor(request.getProfessionLabor());
+        reportEntity.setProfessionNotLabor(request.getProfessionNotLabor());
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date()); // yourDate là thời gian hiện tại của bạn
         calendar.add(Calendar.HOUR_OF_DAY, 7); // thêm 7 giờ vào thời gian hiện tại
@@ -56,6 +58,8 @@ public class ReportRepository {
         reportEntity.setGroupId(groupId);
         reportEntity.setRestNum(request.getRestNum());
         reportEntity.setStudentNum(request.getStudentNum());
+        reportEntity.setProfessionLabor(request.getProfessionLabor());
+        reportEntity.setProfessionNotLabor(request.getProfessionNotLabor());
         reportEntity.setLaborProductivity(request.getLaborProductivity());
         reportEntity.setPartTimeNum(request.getPartTimeNum());
         Calendar calendar = Calendar.getInstance();
