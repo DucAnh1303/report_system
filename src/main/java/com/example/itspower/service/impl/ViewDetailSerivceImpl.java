@@ -10,7 +10,6 @@ import com.example.itspower.response.exportexcel.ExportExcel;
 import com.example.itspower.response.group.ViewDetailGroups;
 import com.example.itspower.service.ViewDetailService;
 import com.example.itspower.util.HeaderExcelTem;
-import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -139,9 +138,8 @@ public class ViewDetailSerivceImpl implements ViewDetailService {
         return parentIdToChildren.get(0);
     }
 
-    @SneakyThrows
     public byte[] exportExcel(List<ExportExcelRequest> request) throws IOException, NoSuchFieldException, IllegalAccessException {
-        exportExcel.initializeData(request, "src/main/resources/template/report_system.xlsx", HeaderExcelTem.HEADER_REPORT_VIEW);
+        exportExcel.initializeData(request, "src/main/resources/template/system-report.xlsx", HeaderExcelTem.HEADER_REPORT_VIEW);
         return exportExcel.export();
     }
 }

@@ -14,9 +14,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Component;
 
-import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -38,8 +36,7 @@ public class ExportExcel {
         this.headers = headers;
     }
 
-    private void createCell(Row row, int columnCount, Object value, XSSFCellStyle style) {
-        sheet.autoSizeColumn(columnCount);
+    static void createCell(Row row, int columnCount, Object value, XSSFCellStyle style) {
         Cell cell = row.createCell(columnCount);
         if (value instanceof Integer) {
             cell.setCellValue((Integer) value);
@@ -54,22 +51,23 @@ public class ExportExcel {
     }
 
     private void writeDataLines() throws IOException, NoSuchFieldException, IllegalAccessException {
-        FileInputStream inputStream = new FileInputStream(file);
-        workbook = (XSSFWorkbook) WorkbookFactory.create(inputStream);
+        FileInputStream target = new FileInputStream(file);
+        InputStream targetStream = new ByteArrayInputStream(target.readAllBytes());
+        workbook = (XSSFWorkbook) WorkbookFactory.create(targetStream);
         sheet = workbook.getSheetAt(0);
         int rowCount = 1;
         XSSFCellStyle style = workbook.createCellStyle();
         XSSFFont font = workbook.createFont();
         font.setFontHeight(14);
         style.setFont(font);
-        for (Object data : data) {
-            Row row = sheet.getRow(rowCount++);
+        for (Object data1 : data) {
+            Row row = sheet.createRow(rowCount++);
             int columnCount = 0;
-            createCellValue(row, columnCount, data, style, headers);
+            createCellValue(row, columnCount, data1, style, headers);
         }
     }
 
-    public void createCellValue(Row row, int column, Object ob, XSSFCellStyle style, List<String> headers) throws NoSuchFieldException, IllegalAccessException {
+    public static void createCellValue(Row row, int column, Object ob, XSSFCellStyle style, List<String> headers) throws NoSuchFieldException, IllegalAccessException {
         for (String fieldName : headers) {
             if (hasField(ob, fieldName)) {
                 createCell(row, column++, getValueFieldByName(ob, fieldName), style);
