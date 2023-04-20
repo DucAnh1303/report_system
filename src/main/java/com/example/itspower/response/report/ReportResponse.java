@@ -1,6 +1,6 @@
 package com.example.itspower.response.report;
 
-import com.example.itspower.component.util.DateUtils;
+import com.example.itspower.util.DateUtils;
 import com.example.itspower.model.entity.RiceEntity;
 import com.example.itspower.model.entity.TransferEntity;
 import com.example.itspower.model.resultset.ReportDto;

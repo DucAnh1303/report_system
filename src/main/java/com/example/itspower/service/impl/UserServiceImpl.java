@@ -1,6 +1,6 @@
 package com.example.itspower.service.impl;
 
-import com.example.itspower.component.util.DateUtils;
+import com.example.itspower.util.DateUtils;
 import com.example.itspower.exception.ResourceNotFoundException;
 import com.example.itspower.model.entity.GroupEntity;
 import com.example.itspower.model.entity.ReportEntity;

@@ -1,6 +1,6 @@
 package com.example.itspower.controller;
 
-import com.example.itspower.component.util.DateUtils;
+import com.example.itspower.util.DateUtils;
 import com.example.itspower.response.SuccessResponse;
 import com.example.itspower.service.TransferService;
 import org.springframework.beans.factory.annotation.Autowired;
