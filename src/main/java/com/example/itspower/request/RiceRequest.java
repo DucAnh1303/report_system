@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class RiceRequest {
-    private int riceId;
+    private Integer riceId;
     private int riceCus=0;
     private int riceEmp=0;
     private int riceVip=0;

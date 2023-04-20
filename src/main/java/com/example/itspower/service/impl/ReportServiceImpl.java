@@ -1,14 +1,15 @@
 package com.example.itspower.service.impl;
 
 import com.example.itspower.component.util.DateUtils;
+import com.example.itspower.model.entity.GroupEntity;
 import com.example.itspower.model.entity.ReportEntity;
 import com.example.itspower.model.entity.RiceEntity;
 import com.example.itspower.model.entity.TransferEntity;
 import com.example.itspower.model.resultset.ReportDto;
 import com.example.itspower.model.resultset.RestDto;
 import com.example.itspower.repository.*;
+import com.example.itspower.repository.repositoryjpa.EmployeeGroupRepository;
 import com.example.itspower.request.ReportRequest;
-import com.example.itspower.request.TransferRequest;
 import com.example.itspower.response.SuccessResponse;
 import com.example.itspower.response.report.ReportResponse;
 import com.example.itspower.service.ReportService;
@@ -35,6 +36,8 @@ public class ReportServiceImpl implements ReportService {
     private GroupRoleRepository groupRoleRepository;
     @Autowired
     private RiceRepository riceRepository;
+    @Autowired
+    private EmployeeGroupRepository employeeGroupRepository;
 
     @Override
     public Object reportDto(String reportDate, int groupId) {
@@ -74,42 +77,34 @@ public class ReportServiceImpl implements ReportService {
             return new SuccessResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "report is not Exits", HttpStatus.INTERNAL_SERVER_ERROR.name());
         }
         ReportEntity reportEntity = reportRepository.updateReport(request, groupId);
-        if (request.getRiceRequests() != null && request.getRiceRequests().getRiceId() != 0) {
+        if (request.getRiceRequests().getRiceId() != null && request.getRiceRequests().getRiceId() != 0) {
             riceRepository.updateRice(request.getRiceRequests(), reportEntity.getId());
         }
-        if (request.getTransferRequests() != null && request.getRestRequests().size() != 0) {
-            restRepository.updateRest(request.getRestRequests(), reportEntity.getId());
-        }
-        if (request.getTransferRequests() != null && request.getTransferRequests().size() != 0) {
-            transferRepository.updateTransfer(request.getTransferRequests(), reportEntity.getId());
-        }
+        request.getRestRequests().forEach(z -> {
+            if (z.getRestId() != null && z.getRestId() != 0) {
+                restRepository.updateRest(request.getRestRequests(), reportEntity.getId());
+            }
+        });
+        request.getTransferRequests().forEach(i -> {
+            if (i.getTransferId() != null && i.getTransferId() != 0) {
+                transferRepository.updateTransfer(request.getTransferRequests(), reportEntity.getId());
+            }
+        });
         return ResponseEntity.ok(new SuccessResponse<>(HttpStatus.OK.value(), "update report success", reportDto(DateUtils.formatDate(reportEntity.getReportDate()), reportEntity.getGroupId())));
     }
 
     @Override
     public void deleteRestIdsAndReportId(Integer reportId, List<Integer> restIds) {
         restRepository.deleteRestIdsAndReportId(reportId, restIds);
-        // report id
     }
 
-    private boolean check(int riceCus, int riseEmp, int riseVip) {
-        if (riceCus < 0 || riseEmp < 0 || riseVip < 0) {
-            return true;
-        }
-        return false;
-    }
 
-    private boolean checkReport(ReportRequest request) {
-        if (request.getPartTimeNum() < 0 || request.getStudentNum() < 0) {
-            return true;
+    public void deleteRestEmployee(Integer groupId, List<String> laborEmp) {
+        Optional<GroupEntity> groupEntity = groupRoleRepository.findById(groupId);
+        if (groupEntity.isPresent()) {
+            employeeGroupRepository.deleteByGroupIdAndLaborCodeIn(groupId, laborEmp);
+            groupEntity.get().setDemarcationAvailable(groupEntity.get().getDemarcationAvailable() - laborEmp.size());
+            groupRoleRepository.save(groupEntity.get());
         }
-        return false;
-    }
-
-    private boolean checkTransfer(List<TransferRequest> request) {
-        if (request.get(0).getTransferNum() < 0 || request.get(1).getTransferNum() < 0) {
-            return true;
-        }
-        return false;
     }
 }

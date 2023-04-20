@@ -11,4 +11,6 @@ public interface ReportService {
 
     Object update(ReportRequest request, int groupId);
     void deleteRestIdsAndReportId(Integer reportId,List<Integer> restIds);
+
+    void deleteRestEmployee(Integer groupId, List<String> laborEmp);
 }
