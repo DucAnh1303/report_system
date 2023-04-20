@@ -10,10 +10,10 @@ import java.util.List;
 @NoArgsConstructor
 public class ReportRequest {
     private int id;
-    private int demarcation;
-    private float restNum;
-    private float laborProductivity;
-    private int partTimeNum;
+    private Float demarcation;
+    private Float restNum;
+    private Float laborProductivity;
+    private Float partTimeNum;
     private int studentNum;
     private int professionLabor;
     private int professionNotLabor;

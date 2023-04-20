@@ -83,19 +83,19 @@ public class ReportEntity {
     @Column(name = "report_date")
     private Date reportDate;
     @Column(name = "part_time_num")
-    private Integer partTimeNum = 0;
+    private Float partTimeNum ;
     @Column(name = "student_num")
     private Integer studentNum = 0;
     @Column(name = "rest_num")
-    private float restNum = 0;
+    private Float restNum ;
     @Column(name = "group_id")
     private Integer groupId;
     @Column(name = "demarcation")
-    private Integer demarcation = 0;
+    private Float demarcation ;
     @Column(name = "professionLabor")
     private Integer professionLabor = 0;
     @Column(name = "professionNotLabor")
     private Integer professionNotLabor = 0;
     @Column(name = "labor_productivity")
-    private float laborProductivity ;
+    private Float laborProductivity ;
 }

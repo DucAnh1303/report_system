@@ -21,7 +21,7 @@ public class GroupRoleRepository {
     @Autowired
     private GroupJpaRepository groupJpaRepository;
 
-    public GroupEntity update(Integer groupRoleId, String groupName, Integer parentId, Integer demarcation) {
+    public GroupEntity update(Integer groupRoleId, String groupName, Integer parentId, Float demarcation) {
         GroupEntity entity = new GroupEntity();
         entity.setId(groupRoleId);
         entity.setGroupName(groupName);

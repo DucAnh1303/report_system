@@ -180,7 +180,7 @@ public class GroupRoleServiceImpl implements GroupRoleService {
     }
 
     @Override
-    public Object updateGroupRole(Integer id, Integer demarcation) {
+    public Object updateGroupRole(Integer id, Float demarcation) {
 
         Optional<GroupEntity> group = groupRoleRepository.findById(id);
         if (group.isEmpty()) {
