@@ -53,7 +53,7 @@ public class ExportExcel {
     private void writeDataLines() throws IOException, NoSuchFieldException, IllegalAccessException {
         FileInputStream target = new FileInputStream(file);
         InputStream targetStream = new ByteArrayInputStream(target.readAllBytes());
-        workbook = (XSSFWorkbook) WorkbookFactory.create(targetStream);
+        workbook = (XSSFWorkbook) WorkbookFactory.create(target.readAllBytes());
         sheet = workbook.getSheetAt(0);
         int rowCount = 1;
         XSSFCellStyle style = workbook.createCellStyle();

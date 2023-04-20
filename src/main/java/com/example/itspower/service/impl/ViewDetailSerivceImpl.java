@@ -139,7 +139,7 @@ public class ViewDetailSerivceImpl implements ViewDetailService {
     }
 
     public byte[] exportExcel(List<ExportExcelRequest> request) throws IOException, NoSuchFieldException, IllegalAccessException {
-        exportExcel.initializeData(request, "src/main/resources/template/system-report.xlsx", HeaderExcelTem.HEADER_REPORT_VIEW);
+        exportExcel.initializeData(request, "/src/main/resources/template/system-report.xlsx", HeaderExcelTem.HEADER_REPORT_VIEW);
         return exportExcel.export();
     }
 }
