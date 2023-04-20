@@ -1,5 +1,4 @@
 package com.example.itspower.controller;
-
 import com.example.itspower.exception.GeneralException;
 import com.example.itspower.request.EmployeeGroupRequest;
 import com.example.itspower.request.ReportRequest;
@@ -10,13 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
 @RestController
 public class ReportController {
     @Autowired
