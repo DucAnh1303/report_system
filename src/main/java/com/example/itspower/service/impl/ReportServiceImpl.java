@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import javax.transaction.Transactional;
 import java.util.Calendar;
@@ -103,7 +104,11 @@ public class ReportServiceImpl implements ReportService {
         Optional<GroupEntity> groupEntity = groupRoleRepository.findById(groupId);
         if (groupEntity.isPresent()) {
             employeeGroupRepository.deleteByGroupIdAndLaborCodeIn(groupId, laborEmp);
-            groupEntity.get().setDemarcationAvailable(groupEntity.get().getDemarcationAvailable() - laborEmp.size());
+            if (laborEmp == null || CollectionUtils.isEmpty(laborEmp)) {
+                groupEntity.get().setDemarcationAvailable(groupEntity.get().getDemarcationAvailable() - 0);
+            } else {
+                groupEntity.get().setDemarcationAvailable(groupEntity.get().getDemarcationAvailable() - laborEmp.size());
+            }
             groupRoleRepository.save(groupEntity.get());
         }
     }
