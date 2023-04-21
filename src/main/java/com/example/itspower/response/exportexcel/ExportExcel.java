@@ -27,6 +27,8 @@ import java.util.List;
 public class ExportExcel {
     private XSSFWorkbook workbook;
     private XSSFSheet sheet;
+    private XSSFSheet sheet1;
+    private XSSFSheet sheet2;
     private List<? extends Object> data;
     private String file;
     List<String> headers;
@@ -56,6 +58,8 @@ public class ExportExcel {
         InputStream targetStream = new ByteArrayInputStream(target.readAllBytes());
         workbook = (XSSFWorkbook) WorkbookFactory.create(targetStream);
         sheet = workbook.getSheetAt(0);
+        sheet1 = workbook.getSheetAt(1);
+        sheet2 = workbook.getSheetAt(2);
         int rowCount = 1;
         XSSFCellStyle style = workbook.createCellStyle();
         XSSFFont font = workbook.createFont();
@@ -63,6 +67,17 @@ public class ExportExcel {
         style.setFont(font);
         for (Object data1 : data) {
             Row row = sheet.createRow(rowCount++);
+            int columnCount = 0;
+            createCellValue(row, columnCount, data1, style, headers);
+        }
+
+        for (Object data1 : data) {
+            Row row = sheet1.createRow(rowCount++);
+            int columnCount = 0;
+            createCellValue(row, columnCount, data1, style, headers);
+        }
+        for (Object data1 : data) {
+            Row row = sheet2.createRow(rowCount++);
             int columnCount = 0;
             createCellValue(row, columnCount, data1, style, headers);
         }
@@ -108,14 +123,13 @@ public class ExportExcel {
             return false;
         }
     }
-
     public InputStreamResource export() throws IOException, NoSuchFieldException, IllegalAccessException {
         writeDataLines();
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        workbook.write(bos);
+        ByteArrayOutputStream targetStream = new ByteArrayOutputStream(file.length());
+        workbook.write(targetStream);
         workbook.close();
-        bos.close();
-        InputStreamResource resource = new InputStreamResource(new ByteArrayInputStream(bos.toByteArray()));
+        targetStream.close();
+        InputStreamResource resource = new InputStreamResource(new ByteArrayInputStream(targetStream.toByteArray()));
         return resource;
     }
 }

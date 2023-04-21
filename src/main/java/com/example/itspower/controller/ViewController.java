@@ -58,7 +58,7 @@ public class ViewController {
     public ResponseEntity<Resource> exportExcel(@RequestBody List<ExportExcelRequest> request) {
         try {
             return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + "system-report.xlsx")
-                    .contentType(MediaType.parseMediaType("text/xlsx"))
+                    .contentType(MediaType.parseMediaType("application/octet-stream"))
                     .body(viewDetailService.exportExcel(request));
         } catch (Exception e) {
             throw new ReasonException(HttpStatus.NOT_FOUND.value(), ERROR, e);
