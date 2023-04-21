@@ -12,6 +12,7 @@ import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
@@ -53,7 +54,7 @@ public class ExportExcel {
     private void writeDataLines() throws IOException, NoSuchFieldException, IllegalAccessException {
         FileInputStream target = new FileInputStream(file);
         InputStream targetStream = new ByteArrayInputStream(target.readAllBytes());
-        workbook = (XSSFWorkbook) WorkbookFactory.create(target.readAllBytes());
+        workbook = (XSSFWorkbook) WorkbookFactory.create(targetStream);
         sheet = workbook.getSheetAt(0);
         int rowCount = 1;
         XSSFCellStyle style = workbook.createCellStyle();
@@ -108,12 +109,13 @@ public class ExportExcel {
         }
     }
 
-    public byte[] export() throws IOException, NoSuchFieldException, IllegalAccessException {
+    public InputStreamResource export() throws IOException, NoSuchFieldException, IllegalAccessException {
         writeDataLines();
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         workbook.write(bos);
         workbook.close();
         bos.close();
-        return bos.toByteArray();
+        InputStreamResource resource = new InputStreamResource(new ByteArrayInputStream(bos.toByteArray()));
+        return resource;
     }
 }

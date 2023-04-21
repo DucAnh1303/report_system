@@ -6,7 +6,10 @@ import com.example.itspower.response.BaseResponse;
 import com.example.itspower.service.ViewDetailService;
 import com.example.itspower.service.ViewService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -52,9 +55,11 @@ public class ViewController {
     }
 
     @PostMapping("/exportExcel")
-    public byte[] exportExcel(@RequestBody List<ExportExcelRequest> request) {
+    public ResponseEntity<Resource> exportExcel(@RequestBody List<ExportExcelRequest> request) {
         try {
-            return viewDetailService.exportExcel(request);
+            return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + "system-report.xlsx")
+                    .contentType(MediaType.parseMediaType("text/xlsx"))
+                    .body(viewDetailService.exportExcel(request));
         } catch (Exception e) {
             throw new ReasonException(HttpStatus.NOT_FOUND.value(), ERROR, e);
         }
