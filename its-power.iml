@@ -16,10 +16,7 @@
         <setting name="provider-name" value="Hibernate" />
         <datasource-mapping>
           <factory-entry name="entityManagerFactory" />
-<<<<<<< HEAD
           <factory-entry name="its-power" />
-=======
->>>>>>> 5125943166db1ea07a00e68920ebd0eea642f779
         </datasource-mapping>
         <naming-strategy-map />
       </configuration>
