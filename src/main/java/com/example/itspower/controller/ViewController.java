@@ -56,8 +56,8 @@ public class ViewController {
     @PostMapping("/exportExcel")
     public ResponseEntity<Resource> exportExcel(@RequestParam("reportDate") String reportDate) {
         try {
-
-            return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + "bgglg "+ DateUtils.formatDate(new Date(),"yyyy-MM-dd") +".xlsx")
+            String fileName = "bgglg" + DateUtils.formatDate(new Date(), "yyyy-MM-dd") + ".xlsx";
+            return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename= bgglg.xlsx")
                     .contentType(MediaType.parseMediaType("application/octet-stream"))
                     .body(viewDetailService.exportExcel(reportDate));
         } catch (Exception e) {
