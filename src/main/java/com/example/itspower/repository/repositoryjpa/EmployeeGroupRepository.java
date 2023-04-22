@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface EmployeeGroupRepository extends JpaRepository<EmployeeGroupEntity, Integer> {
@@ -25,4 +26,6 @@ public interface EmployeeGroupRepository extends JpaRepository<EmployeeGroupEnti
     @Transactional
     @Modifying
     void deleteByGroupIdAndLaborCodeIn(Integer groupId,List<String> laborCode);
+
+    Optional<EmployeeGroupEntity> findByLaborCode(String laborCode);
 }

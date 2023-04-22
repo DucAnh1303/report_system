@@ -6,6 +6,7 @@ import com.example.itspower.model.resultset.ReportDto;
 import com.example.itspower.repository.repositoryjpa.GroupJpaRepository;
 import com.example.itspower.repository.repositoryjpa.ReportJpaRepository;
 import com.example.itspower.request.ReportRequest;
+import com.example.itspower.response.export.ExportExcelDtoReport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Component;
 import javax.transaction.Transactional;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -25,6 +27,10 @@ public class ReportRepository {
 
     public ReportDto reportDto(String reportDate, int groupId) {
         return reportJpaRepository.findByReport(reportDate, groupId);
+    }
+
+    public List<ExportExcelDtoReport> findByReportExcel(String reportDate) {
+        return reportJpaRepository.findByReportExcel(reportDate);
     }
 
     public ReportEntity saveReport(ReportRequest request, int groupId) {

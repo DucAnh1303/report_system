@@ -1,29 +1,23 @@
 package com.example.itspower.service.impl;
 
-import com.example.itspower.util.DateUtils;
-import com.example.itspower.model.entity.GroupEntity;
-import com.example.itspower.model.entity.ReportEntity;
-import com.example.itspower.model.entity.RiceEntity;
-import com.example.itspower.model.entity.TransferEntity;
+import com.example.itspower.model.entity.*;
 import com.example.itspower.model.resultset.ReportDto;
 import com.example.itspower.model.resultset.RestDto;
 import com.example.itspower.repository.*;
+import com.example.itspower.repository.repositoryjpa.EmpTerminationContractRepository;
 import com.example.itspower.repository.repositoryjpa.EmployeeGroupRepository;
 import com.example.itspower.request.ReportRequest;
 import com.example.itspower.response.SuccessResponse;
 import com.example.itspower.response.report.ReportResponse;
 import com.example.itspower.service.ReportService;
+import com.example.itspower.util.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 import javax.transaction.Transactional;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ReportServiceImpl implements ReportService {
@@ -37,6 +31,8 @@ public class ReportServiceImpl implements ReportService {
     private GroupRoleRepository groupRoleRepository;
     @Autowired
     private RiceRepository riceRepository;
+    @Autowired
+    private EmpTerminationContractRepository empTerminationContractRepository;
     @Autowired
     private EmployeeGroupRepository employeeGroupRepository;
 
@@ -100,16 +96,35 @@ public class ReportServiceImpl implements ReportService {
     }
 
 
-    public void deleteRestEmployee(Integer groupId, List<String> laborEmp) {
+    public void deleteRestEmployee(Integer groupId, List<String> laborEmps) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.add(Calendar.HOUR_OF_DAY, 7); // thêm 7 giờ vào thời gian hiện tại
+        Date newDate = calendar.getTime();
         Optional<GroupEntity> groupEntity = groupRoleRepository.findById(groupId);
         if (groupEntity.isPresent()) {
-            employeeGroupRepository.deleteByGroupIdAndLaborCodeIn(groupId, laborEmp);
-            if (laborEmp == null || CollectionUtils.isEmpty(laborEmp)) {
-                groupEntity.get().setDemarcationAvailable(groupEntity.get().getDemarcationAvailable() - 0);
-            } else {
-                groupEntity.get().setDemarcationAvailable(groupEntity.get().getDemarcationAvailable() - laborEmp.size());
-            }
+            addEmpTerminationContract(groupId, laborEmps, newDate);
+            employeeGroupRepository.deleteByGroupIdAndLaborCodeIn(groupId, laborEmps);
+            groupEntity.get().setDemarcationAvailable(groupEntity.get().getDemarcationAvailable() - laborEmps.size());
             groupRoleRepository.save(groupEntity.get());
+        }
+    }
+
+    private void addEmpTerminationContract(Integer groupId, List<String> laborEmps, Date date) {
+        if (laborEmps.size() != 0) {
+            List<EmployeeTerminationOfContractEntity> entities = new ArrayList<>();
+            for (String laborEmp : laborEmps) {
+                Optional<EmployeeGroupEntity> employeeGroup = employeeGroupRepository.findByLaborCode(laborEmp);
+                if (employeeGroup.isPresent()) {
+                    EmployeeTerminationOfContractEntity entityTerOfContract = new EmployeeTerminationOfContractEntity();
+                    entityTerOfContract.setEmployeeLabor(employeeGroup.get().getLaborCode());
+                    entityTerOfContract.setEmployeeName(employeeGroup.get().getName());
+                    entityTerOfContract.setGroupId(groupId);
+                    entityTerOfContract.setStartDate(date);
+                    entities.add(entityTerOfContract);
+                }
+            }
+            empTerminationContractRepository.saveAll(entities);
         }
     }
 }

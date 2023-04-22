@@ -3,13 +3,15 @@ package com.example.itspower.service.impl;
 import com.example.itspower.model.resultset.RootNameDto;
 import com.example.itspower.model.resultset.ViewAllDto;
 import com.example.itspower.repository.GroupRoleRepository;
+import com.example.itspower.repository.ReportRepository;
+import com.example.itspower.repository.repositoryjpa.EmpTerminationContractRepository;
 import com.example.itspower.repository.repositoryjpa.GroupJpaRepository;
 import com.example.itspower.repository.repositoryjpa.ReportJpaRepository;
-import com.example.itspower.request.export.ExportExcelRequest;
-import com.example.itspower.response.exportexcel.ExportExcel;
+import com.example.itspower.response.export.EmployeeExportExcel;
+import com.example.itspower.response.export.ExportExcelDtoReport;
+import com.example.itspower.service.exportexcel.ExportExcel;
 import com.example.itspower.response.group.ViewDetailGroups;
 import com.example.itspower.service.ViewDetailService;
-import com.example.itspower.util.HeaderExcelTem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.stereotype.Service;
@@ -29,6 +31,10 @@ public class ViewDetailSerivceImpl implements ViewDetailService {
     GroupJpaRepository groupJpaRepository;
     @Autowired
     private GroupRoleRepository groupRoleRepository;
+    @Autowired
+    private ReportRepository reportRepository;
+    @Autowired
+    private EmpTerminationContractRepository empTerminationContractRepository;
     @Autowired
     private ExportExcel exportExcel;
     public static DecimalFormat decimalFormat = new DecimalFormat("#.#");
@@ -139,8 +145,10 @@ public class ViewDetailSerivceImpl implements ViewDetailService {
         return parentIdToChildren.get(0);
     }
 
-    public InputStreamResource exportExcel(List<ExportExcelRequest> request) throws IOException, NoSuchFieldException, IllegalAccessException {
-        exportExcel.initializeData(request, "src/main/resources/template/system-report.xlsx", HeaderExcelTem.HEADER_REPORT_VIEW);
+    public InputStreamResource exportExcel(String reportDate) throws IOException, NoSuchFieldException, IllegalAccessException {
+        List<ExportExcelDtoReport> reportExcel = reportRepository.findByReportExcel(reportDate);
+        List<EmployeeExportExcel> employeeExportExcels = empTerminationContractRepository.findByEmployee(reportDate);
+        exportExcel.initializeData(reportExcel, employeeExportExcels, "src/main/resources/template/bgglg-excel.xlsx");
         return exportExcel.export();
     }
 }

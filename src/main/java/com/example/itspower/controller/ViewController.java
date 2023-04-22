@@ -1,7 +1,6 @@
 package com.example.itspower.controller;
 
 import com.example.itspower.exception.ReasonException;
-import com.example.itspower.request.export.ExportExcelRequest;
 import com.example.itspower.response.BaseResponse;
 import com.example.itspower.service.ViewDetailService;
 import com.example.itspower.service.ViewService;
@@ -17,7 +16,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 import static com.example.itspower.component.enums.StatusReason.ERROR;
 import static com.example.itspower.component.enums.StatusReason.SUCCESS;
@@ -55,11 +53,11 @@ public class ViewController {
     }
 
     @PostMapping("/exportExcel")
-    public ResponseEntity<Resource> exportExcel(@RequestBody List<ExportExcelRequest> request) {
+    public ResponseEntity<Resource> exportExcel(@RequestParam("reportDate") String reportDate) {
         try {
-            return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + "system-report.xlsx")
+            return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + "bgglg.xlsx")
                     .contentType(MediaType.parseMediaType("application/octet-stream"))
-                    .body(viewDetailService.exportExcel(request));
+                    .body(viewDetailService.exportExcel(reportDate));
         } catch (Exception e) {
             throw new ReasonException(HttpStatus.NOT_FOUND.value(), ERROR, e);
         }
