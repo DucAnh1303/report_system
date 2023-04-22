@@ -52,7 +52,7 @@ public class ViewController {
         }
     }
 
-    @PostMapping("/exportExcel")
+    @GetMapping("/exportExcel")
     public ResponseEntity<Resource> exportExcel(@RequestParam("reportDate") String reportDate) {
         try {
             String fileName = "bgglg" + reportDate + ".xlsx";
