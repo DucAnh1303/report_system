@@ -52,11 +52,11 @@ public class ViewController {
         }
     }
 
-    @GetMapping("/exportExcel")
+    @PostMapping("/exportExcel")
     public ResponseEntity<Resource> exportExcel(@RequestParam("reportDate") String reportDate) {
         try {
-            String fileName = "bgglg" + reportDate + ".xlsx";
-            return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename= bgglg.xlsx")
+            String fileName = "bgglg-" + reportDate + ".xlsx";
+            return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename= "+fileName)
                     .contentType(MediaType.parseMediaType("application/octet-stream"))
                     .body(viewDetailService.exportExcel(reportDate));
         } catch (Exception e) {
