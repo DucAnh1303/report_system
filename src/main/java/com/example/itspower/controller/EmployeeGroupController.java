@@ -1,16 +1,21 @@
 package com.example.itspower.controller;
 
+import com.example.itspower.exception.GeneralException;
 import com.example.itspower.exception.ReasonException;
 import com.example.itspower.request.search.SearchEmployeeRequest;
 import com.example.itspower.request.userrequest.addUserRequest;
 import com.example.itspower.response.BaseResponse;
 import com.example.itspower.response.SuccessResponse;
 import com.example.itspower.service.EmployeeGroupService;
+import com.example.itspower.service.impl.ImportEmployee;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,7 +27,8 @@ import static com.example.itspower.component.enums.StatusReason.SUCCESS;
 public class EmployeeGroupController {
     @Autowired
     EmployeeGroupService employeeGroupService;
-
+    @Autowired
+    ImportEmployee importEmployee;
     @PostMapping("/save")
     public SuccessResponse save(@RequestBody List<addUserRequest> addUser) {
         try {
@@ -66,4 +72,19 @@ public class EmployeeGroupController {
             throw new ReasonException(HttpStatus.BAD_REQUEST.value(), ERROR, e);
         }
     }
+    @PostMapping("/import")
+    public ResponseEntity<Object>  importExcel(@RequestParam MultipartFile file) throws IOException, GeneralException {
+        try {
+            String extension = FilenameUtils.getExtension(file.getOriginalFilename());
+            if (!extension.equalsIgnoreCase("xlsx") && !extension.equalsIgnoreCase("xls")) {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("fail"+
+                        "The file is not in the correct excel format!");
+            }
+            importEmployee.getSheetFileExcel(file);
+            return ResponseEntity.ok( new SuccessResponse<>(HttpStatus.CREATED.value(),"ok"));
+        } catch (Exception e) {
+            throw new GeneralException(e.getMessage());
+        }
+    }
+
 }
