@@ -4,7 +4,6 @@ import com.example.itspower.exception.ReasonException;
 import com.example.itspower.response.BaseResponse;
 import com.example.itspower.service.ViewDetailService;
 import com.example.itspower.service.ViewService;
-import com.example.itspower.util.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -56,7 +55,7 @@ public class ViewController {
     @PostMapping("/exportExcel")
     public ResponseEntity<Resource> exportExcel(@RequestParam("reportDate") String reportDate) {
         try {
-            String fileName = "bgglg" + DateUtils.formatDate(new Date(), "yyyy-MM-dd") + ".xlsx";
+            String fileName = "bgglg" + reportDate + ".xlsx";
             return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename= bgglg.xlsx")
                     .contentType(MediaType.parseMediaType("application/octet-stream"))
                     .body(viewDetailService.exportExcel(reportDate));
