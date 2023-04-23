@@ -1,8 +1,9 @@
 package com.example.itspower.service.exportexcel;
 
 
-import com.example.itspower.response.export.EmployeeExportExcel;
+import com.example.itspower.response.export.EmployeeExportExcelContractEnd;
 import com.example.itspower.response.export.ExportExcelDtoReport;
+import com.example.itspower.response.export.ExportExcelEmpRest;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,12 +29,14 @@ public class ExportExcel {
     private XSSFSheet sheet2;
     private XSSFSheet sheet3;
     private List<ExportExcelDtoReport> reportExcel;
-    private List<EmployeeExportExcel> reportEmp;
+    private List<EmployeeExportExcelContractEnd> reportEmpContractEnd;
+    private List<ExportExcelEmpRest> exportExcelEmpRests;
     private String file;
 
-    public void initializeData(List<ExportExcelDtoReport> reportExcel, List<EmployeeExportExcel> reportEmp, String file) {
+    public void initializeData(List<ExportExcelDtoReport> reportExcel, List<EmployeeExportExcelContractEnd> reportEmpContractEnd, List<ExportExcelEmpRest> exportExcelEmpRests, String file) {
         this.reportExcel = reportExcel;
-        this.reportEmp = reportEmp;
+        this.reportEmpContractEnd = reportEmpContractEnd;
+        this.exportExcelEmpRests = exportExcelEmpRests;
         this.file = file;
     }
 
@@ -96,22 +99,23 @@ public class ExportExcel {
         }
         creatCellFormat(79, 1, sumEmp, style);
         creatCellFormat(79, 2, sumCus, style);
-        for (ExportExcelDtoReport data2 : reportExcel) {
+        for (ExportExcelEmpRest data2 : exportExcelEmpRests) {
             Row row = sheet1.createRow(rowCount1++);
             int columnCount = 0;
             createCell(row, columnCount++, String.valueOf(data2.getReportDate()), style);
             createCell(row, columnCount++, data2.getRestName(), style);
-            createCell(row, columnCount++, data2.getLaborRest(), style);
+            createCell(row, columnCount++, data2.getLabor(), style);
             createCell(row, columnCount++, data2.getGroupName(), style);
             createCell(row, columnCount, data2.getReasonName(), style);
         }
-        for (EmployeeExportExcel employee : reportEmp) {
+        for (EmployeeExportExcelContractEnd employee : reportEmpContractEnd) {
             Row row = sheet2.createRow(rowCount2++);
             int columnCount = 0;
             createCell(row, columnCount++, employee.getStartDate(), style);
             createCell(row, columnCount++, employee.getEmployeeName(), style);
             createCell(row, columnCount++, employee.getLaborCode(), style);
             createCell(row, columnCount, employee.getGroupName(), style);
+            createCell(row, columnCount, "", style);
         }
     }
 

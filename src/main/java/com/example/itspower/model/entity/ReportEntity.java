@@ -2,6 +2,7 @@ package com.example.itspower.model.entity;
 
 import com.example.itspower.model.resultset.ReportDto;
 import com.example.itspower.response.export.ExportExcelDtoReport;
+import com.example.itspower.response.export.ExportExcelEmpRest;
 import com.example.itspower.response.view.ViewDetailResponse;
 import lombok.Data;
 
@@ -107,6 +108,34 @@ import java.util.Date;
                 " where group_id in (SELECT gr.id FROM group_role gr where parent_id =:parentId or gr.id=:parentId ) " +
                 "and DATE_FORMAT(r.report_date, '%Y%m%d') = DATE_FORMAT(:reportDate, '%Y%m%d')",
         resultSetMapping = "ViewDetailResponse"
+)
+
+
+@SqlResultSetMapping(
+        name = "ExportExcelEmpRest",
+        classes = @ConstructorResult(
+                targetClass = ExportExcelEmpRest.class,
+                columns = {
+                        @ColumnResult(name = "reportDate", type = String.class),
+                        @ColumnResult(name = "restName", type = String.class),
+                        @ColumnResult(name = "labor", type = String.class),
+                        @ColumnResult(name = "groupName", type = String.class),
+                        @ColumnResult(name = "reasonName", type = String.class),
+
+                }
+        )
+)
+
+@NamedNativeQuery(
+        name = "find_by_employee_rest",
+        query = "select DATE_FORMAT(r.report_date ,'%Y%m%d') as reportDate,r2.rest_name as restName,\n" +
+                "r2.employee_labor as labor,\n" +
+                "gr.group_name as groupName,r3.name as reasonName\n" +
+                "from report r join rest r2 on r.id = r2.report_id\n" +
+                "left join group_role gr on gr.id = r.group_id\n" +
+                "left join reason r3 on r2.reason_id = r3.id\n" +
+                "where DATE_FORMAT(r.report_date ,'%Y%m%d') = DATE_FORMAT(:reportDate ,'%Y%m%d')",
+        resultSetMapping = "ExportExcelEmpRest"
 )
 public class ReportEntity {
     @Id

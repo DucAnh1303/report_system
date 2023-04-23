@@ -7,8 +7,9 @@ import com.example.itspower.repository.ReportRepository;
 import com.example.itspower.repository.repositoryjpa.EmpTerminationContractRepository;
 import com.example.itspower.repository.repositoryjpa.GroupJpaRepository;
 import com.example.itspower.repository.repositoryjpa.ReportJpaRepository;
-import com.example.itspower.response.export.EmployeeExportExcel;
+import com.example.itspower.response.export.EmployeeExportExcelContractEnd;
 import com.example.itspower.response.export.ExportExcelDtoReport;
+import com.example.itspower.response.export.ExportExcelEmpRest;
 import com.example.itspower.service.exportexcel.ExportExcel;
 import com.example.itspower.response.group.ViewDetailGroups;
 import com.example.itspower.service.ViewDetailService;
@@ -147,8 +148,9 @@ public class ViewDetailSerivceImpl implements ViewDetailService {
 
     public InputStreamResource exportExcel(String reportDate) throws IOException, NoSuchFieldException, IllegalAccessException {
         List<ExportExcelDtoReport> reportExcel = reportRepository.findByReportExcel(reportDate);
-        List<EmployeeExportExcel> employeeExportExcels = empTerminationContractRepository.findByEmployee(reportDate);
-        exportExcel.initializeData(reportExcel, employeeExportExcels, "src/main/resources/template/bgglg-excel.xlsx");
+        List<EmployeeExportExcelContractEnd> employeeExportExcelContractEnds = empTerminationContractRepository.findByEmployee(reportDate);
+        List<ExportExcelEmpRest> exportExcelEmpRests = reportRepository.findByReportExcelEmpRest(reportDate);
+        exportExcel.initializeData(reportExcel, employeeExportExcelContractEnds, exportExcelEmpRests, "src/main/resources/template/bgglg-excel.xlsx");
         return exportExcel.export();
     }
 }

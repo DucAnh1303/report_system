@@ -3,10 +3,10 @@ package com.example.itspower.repository;
 import com.example.itspower.exception.ResourceNotFoundException;
 import com.example.itspower.model.entity.ReportEntity;
 import com.example.itspower.model.resultset.ReportDto;
-import com.example.itspower.repository.repositoryjpa.GroupJpaRepository;
 import com.example.itspower.repository.repositoryjpa.ReportJpaRepository;
 import com.example.itspower.request.ReportRequest;
 import com.example.itspower.response.export.ExportExcelDtoReport;
+import com.example.itspower.response.export.ExportExcelEmpRest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -22,15 +22,16 @@ public class ReportRepository {
     @Autowired
     private ReportJpaRepository reportJpaRepository;
 
-    @Autowired
-    private GroupJpaRepository groupJpaRepository;
-
     public ReportDto reportDto(String reportDate, int groupId) {
         return reportJpaRepository.findByReport(reportDate, groupId);
     }
 
     public List<ExportExcelDtoReport> findByReportExcel(String reportDate) {
         return reportJpaRepository.findByReportExcel(reportDate);
+    }
+
+    public List<ExportExcelEmpRest> findByReportExcelEmpRest(String reportDate) {
+        return reportJpaRepository.findByReportExcelEmpRest(reportDate);
     }
 
     public ReportEntity saveReport(ReportRequest request, int groupId) {
@@ -74,24 +75,11 @@ public class ReportRepository {
         return reportJpaRepository.save(reportEntity);
     }
 
-    public Optional<ReportEntity> findByReportDate(String reportDate) {
-        return reportJpaRepository.findByReportDate(reportDate);
-    }
-
     public Optional<ReportEntity> findByReportDateAndGroupId(String reportDate, int groupId) {
         return reportJpaRepository.findByReportDateAndGroupId(reportDate, groupId);
     }
 
     public Optional<ReportEntity> findByIdAndGroupId(int id, int groupId) {
         return reportJpaRepository.findByIdAndGroupId(id, groupId);
-    }
-
-    public Optional<ReportEntity> findByGroupId(int groupId) {
-        return reportJpaRepository.findByGroupId(groupId);
-    }
-
-
-    public void deleteByGroupId(Integer groupId) {
-        reportJpaRepository.deleteByGroupId(groupId);
     }
 }

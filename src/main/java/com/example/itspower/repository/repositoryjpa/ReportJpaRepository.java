@@ -3,6 +3,7 @@ package com.example.itspower.repository.repositoryjpa;
 import com.example.itspower.model.entity.ReportEntity;
 import com.example.itspower.model.resultset.ReportDto;
 import com.example.itspower.response.export.ExportExcelDtoReport;
+import com.example.itspower.response.export.ExportExcelEmpRest;
 import com.example.itspower.response.view.ViewDetailResponse;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -22,6 +23,9 @@ public interface ReportJpaRepository extends JpaRepository<ReportEntity, Integer
 
     @Query(name = "find_by_excel", nativeQuery = true)
     List<ExportExcelDtoReport> findByReportExcel(@Param("reportDate") String reportDate);
+
+    @Query(name = "find_by_employee_rest", nativeQuery = true)
+    List<ExportExcelEmpRest> findByReportExcelEmpRest(@Param("reportDate") String reportDate);
 
     @Query(name = "get_view_report", nativeQuery = true)
     ViewDetailResponse viewRootReport(@Param("reportDate") String reportDate, @Param("parentId") int parentId);
