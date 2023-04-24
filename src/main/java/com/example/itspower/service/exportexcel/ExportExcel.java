@@ -91,7 +91,7 @@ public class ExportExcel {
         Integer sumEmp = 0;
         Integer sumCus = 0;
         int rowString;
-        int rowCell;
+        int rowCell = 0;
         int rowKey;
         for (ExportExcelDtoReport data1 : reportExcel) {
             Row row = sheet.createRow(rowCount++);
@@ -103,17 +103,16 @@ public class ExportExcel {
             createCell(row, columnCount, "", style);
             sumEmp += data1.getRiceEmp();
             sumCus += data1.getRiceCus();
-
         }
-        rowCell = rowCount;
         rowString = rowCount + 1;
-        rowKey = rowCell + 5;
+        rowKey = rowCount + 5;
+        Row rowTotal = sheet3.createRow(rowCount);
         Row row10 = sheet4.createRow(rowString);
         Row rowNameKey = sheet5.createRow(rowKey);
-        creatCellFormat(rowCell, 0, "Tổng", style);
-        creatCellFormat(rowCell, 1, sumEmp, style);
-        creatCellFormat(rowCell, 2, sumCus, style);
-        creatCellFormat(rowCell, 3, "", style);
+        creatCellFormatStr(rowTotal, 0, "Tổng", style);
+        creatCellFormatStr(rowTotal, 1, sumEmp, style);
+        creatCellFormatStr(rowTotal, 2, sumCus, style);
+        creatCellFormatStr(rowTotal, 3, "", style);
         creatCellFormatStr(row10, 0, "Kế toán", style1);
         creatCellFormatStr(row10, 1, "Giám sát", style1);
         creatCellFormatStr(row10, 2, "Nhà bếp", style1);
@@ -139,23 +138,14 @@ public class ExportExcel {
             createCell(row, columnCount, "", style);
         }
     }
-
-    private void creatCellFormat(int getRow, int getCell, int value, CellStyle cellStyle) {
-        Row row10 = sheet3.getRow(getRow);
-        Cell cell = row10.getCell(getCell);
+    private void creatCellFormatStr(Row row, int getCell, String value, CellStyle cellStyle) {
+        Cell cell = row.createCell(getCell);
         cell.setCellValue(value);
         cell.setCellStyle(cellStyle);
     }
 
-    private void creatCellFormat(int getRow, int getCell, String value, CellStyle cellStyle) {
-        Row row10 = sheet3.getRow(getRow);
-        Cell cell = row10.getCell(getCell);
-        cell.setCellValue(value);
-        cell.setCellStyle(cellStyle);
-    }
-
-    private void creatCellFormatStr(Row row10, int getCell, String value, CellStyle cellStyle) {
-        Cell cell = row10.createCell(getCell);
+    private void creatCellFormatStr(Row row, int getCell, float value, CellStyle cellStyle) {
+        Cell cell = row.createCell(getCell);
         cell.setCellValue(value);
         cell.setCellStyle(cellStyle);
     }
