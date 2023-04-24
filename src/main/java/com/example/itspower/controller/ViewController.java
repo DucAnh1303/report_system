@@ -5,10 +5,7 @@ import com.example.itspower.response.BaseResponse;
 import com.example.itspower.service.ViewDetailService;
 import com.example.itspower.service.ViewService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,12 +50,12 @@ public class ViewController {
     }
 
     @PostMapping("/exportExcel")
-    public ResponseEntity<Resource> exportExcel(@RequestParam("reportDate") String reportDate) {
+    public String exportExcel(@RequestParam("reportDate") String reportDate) {
         try {
             String fileName = "bgglg-" + reportDate + ".xlsx";
-            return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename= "+fileName)
-                    .contentType(MediaType.parseMediaType("application/octet-stream"))
-                    .body(viewDetailService.exportExcel(reportDate));
+//            String base64String = Base64.getEncoder().encodeToString();
+//            return  viewDetailService.exportExcel(reportDate).getURL();
+            return null;
         } catch (Exception e) {
             throw new ReasonException(HttpStatus.NOT_FOUND.value(), ERROR, e);
         }

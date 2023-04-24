@@ -146,7 +146,7 @@ public class ViewDetailSerivceImpl implements ViewDetailService {
         return parentIdToChildren.get(0);
     }
 
-    public InputStreamResource exportExcel(String reportDate) throws IOException, NoSuchFieldException, IllegalAccessException {
+    public  InputStreamResource exportExcel(String reportDate) throws IOException, NoSuchFieldException, IllegalAccessException {
         List<ExportExcelDtoReport> reportExcel = reportRepository.findByReportExcel(reportDate);
         List<EmployeeExportExcelContractEnd> employeeExportExcelContractEnds = empTerminationContractRepository.findByEmployee(reportDate);
         List<ExportExcelEmpRest> exportExcelEmpRests = reportRepository.findByReportExcelEmpRest(reportDate);
