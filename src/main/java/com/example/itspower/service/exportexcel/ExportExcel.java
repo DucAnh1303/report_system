@@ -28,6 +28,8 @@ public class ExportExcel {
     private XSSFSheet sheet1;
     private XSSFSheet sheet2;
     private XSSFSheet sheet3;
+    private XSSFSheet sheet4;
+    private XSSFSheet sheet5;
     private List<ExportExcelDtoReport> reportExcel;
     private List<EmployeeExportExcelContractEnd> reportEmpContractEnd;
     private List<ExportExcelEmpRest> exportExcelEmpRests;
@@ -62,6 +64,8 @@ public class ExportExcel {
         sheet1 = workbook.getSheetAt(1);
         sheet2 = workbook.getSheetAt(2);
         sheet3 = workbook.getSheetAt(0);
+        sheet4 = workbook.getSheetAt(0);
+        sheet5 = workbook.getSheetAt(0);
         int rowCount = 7;
         int rowCount1 = 7;
         int rowCount2 = 7;
@@ -86,6 +90,9 @@ public class ExportExcel {
         creatCellFormat(row3, String.valueOf(reportExcel.get(0).getReportDate()), style1);
         Integer sumEmp = 0;
         Integer sumCus = 0;
+        int rowString;
+        int rowCell;
+        int rowKey;
         for (ExportExcelDtoReport data1 : reportExcel) {
             Row row = sheet.createRow(rowCount++);
             int columnCount = 0;
@@ -96,12 +103,26 @@ public class ExportExcel {
             createCell(row, columnCount, "", style);
             sumEmp += data1.getRiceEmp();
             sumCus += data1.getRiceCus();
+
         }
-        creatCellFormat(79, 1, sumEmp, style);
-        creatCellFormat(79, 2, sumCus, style);
+        rowCell = rowCount;
+        rowString = rowCount + 1;
+        rowKey = rowCell + 5;
+        Row row10 = sheet4.createRow(rowString);
+        Row rowNameKey = sheet5.createRow(rowKey);
+        creatCellFormat(rowCell, 0, "Tổng", style);
+        creatCellFormat(rowCell, 1, sumEmp, style);
+        creatCellFormat(rowCell, 2, sumCus, style);
+        creatCellFormat(rowCell, 3, "", style);
+        creatCellFormatStr(row10, 0, "Kế toán", style1);
+        creatCellFormatStr(row10, 1, "Giám sát", style1);
+        creatCellFormatStr(row10, 2, "Nhà bếp", style1);
+        creatCellFormatStr(row10, 3, "Người lập bảng", style1);
+        creatCellFormatStr(rowNameKey, 3, "Nguyễn Công Lương", style1);
         for (ExportExcelEmpRest data2 : exportExcelEmpRests) {
             Row row = sheet1.createRow(rowCount1++);
             int columnCount = 0;
+
             createCell(row, columnCount++, String.valueOf(data2.getReportDate()), style);
             createCell(row, columnCount++, data2.getRestName(), style);
             createCell(row, columnCount++, data2.getLabor(), style);
@@ -122,6 +143,19 @@ public class ExportExcel {
     private void creatCellFormat(int getRow, int getCell, int value, CellStyle cellStyle) {
         Row row10 = sheet3.getRow(getRow);
         Cell cell = row10.getCell(getCell);
+        cell.setCellValue(value);
+        cell.setCellStyle(cellStyle);
+    }
+
+    private void creatCellFormat(int getRow, int getCell, String value, CellStyle cellStyle) {
+        Row row10 = sheet3.getRow(getRow);
+        Cell cell = row10.getCell(getCell);
+        cell.setCellValue(value);
+        cell.setCellStyle(cellStyle);
+    }
+
+    private void creatCellFormatStr(Row row10, int getCell, String value, CellStyle cellStyle) {
+        Cell cell = row10.createCell(getCell);
         cell.setCellValue(value);
         cell.setCellStyle(cellStyle);
     }

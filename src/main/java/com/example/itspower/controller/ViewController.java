@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -50,12 +52,19 @@ public class ViewController {
     }
 
     @PostMapping("/exportExcel")
-    public String exportExcel(@RequestParam("reportDate") String reportDate) {
+    public HttpServletResponse exportExcel(@RequestParam("reportDate") String reportDate, HttpServletResponse response) {
         try {
             String fileName = "bgglg-" + reportDate + ".xlsx";
-//            String base64String = Base64.getEncoder().encodeToString();
-//            return  viewDetailService.exportExcel(reportDate).getURL();
-            return null;
+            response.setContentType("application/octet-stream");
+            response.setHeader("Content-Disposition", "attachment; filename= " + fileName);
+            InputStream inputStream = viewDetailService.exportExcel(reportDate).getInputStream();
+            byte[] buffer = new byte[1024];
+            int len;
+            while ((len = inputStream.read(buffer)) > 0) {
+                response.getOutputStream().write(buffer, 0, len);
+            }
+            response.flushBuffer();
+            return response;
         } catch (Exception e) {
             throw new ReasonException(HttpStatus.NOT_FOUND.value(), ERROR, e);
         }
