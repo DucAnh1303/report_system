@@ -26,9 +26,7 @@ public class EmployeeGroupServiceImpl implements EmployeeGroupService {
         List<EmployeeGroupEntity> save = new ArrayList<>();
         for (addUserRequest addUserRequest : addUser) {
             EmployeeGroupEntity employeeGroup = new EmployeeGroupEntity();
-            if (addUserRequest.getId() != null) {
-                employeeGroup.setId(addUserRequest.getId());
-            }
+            employeeGroup.setId(addUserRequest.getId());
             employeeGroup.setGroupId(addUserRequest.getGroupId());
             employeeGroup.setLaborCode(addUserRequest.getLaborCode());
             employeeGroup.setName(addUserRequest.getName());
