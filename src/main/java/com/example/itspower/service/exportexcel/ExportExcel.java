@@ -90,7 +90,6 @@ public class ExportExcel {
         Integer sumEmp = 0;
         Integer sumCus = 0;
         int rowString;
-        int rowCell = 0;
         int rowKey;
         for (ExportExcelDtoReport data1 : reportExcel) {
             Row row = sheet.createRow(rowCount++);
