@@ -59,7 +59,7 @@ public class ViewController {
     public Object exportExcel(@RequestParam("reportDate") String reportDate, HttpServletResponse response) {
         try {
             String fileName = "bgglg-" + reportDate + ".xlsx";
-            response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            response.setContentType("application/octet-stream");
             response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
             InputStream inputStream = viewDetailService.exportExcel(reportDate).getInputStream();
             byte[] buffer = new byte[1024];
@@ -69,6 +69,7 @@ public class ViewController {
                 outputStream.write(buffer, 0, len);
             }
             byte[] data = outputStream.toByteArray();
+            response.flushBuffer();
             response.getOutputStream().write(data);
             return response;
         } catch (Exception e) {
