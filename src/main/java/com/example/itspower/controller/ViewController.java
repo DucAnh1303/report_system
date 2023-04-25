@@ -51,7 +51,7 @@ public class ViewController {
         }
     }
 
-    @PostMapping("/exportExcel")
+    @GetMapping("/exportExcel")
     public HttpServletResponse exportExcel(@RequestParam("reportDate") String reportDate, HttpServletResponse response) {
         try {
             String fileName = "bgglg-" + reportDate + ".xlsx";
