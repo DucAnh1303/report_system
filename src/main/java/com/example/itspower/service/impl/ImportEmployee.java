@@ -39,7 +39,7 @@ public class ImportEmployee {
                 if(check.size() >0){
                     employeeGroup.setGroupId(check.stream().map(k -> k.getId()).collect(Collectors.toList()).get(0));
                     employeeGroup.setName(row.getCell(0).getStringCellValue());
-                    employeeGroup.setLaborCode(String.valueOf(row.getCell(1).getColumnIndex()));
+                    employeeGroup.setLaborCode(String.valueOf((int) row.getCell(1).getNumericCellValue()));
                     res.add(employeeGroup);
                 }
             }
