@@ -150,7 +150,7 @@ public class ViewDetailSerivceImpl implements ViewDetailService {
         List<ExportExcelDtoReport> reportExcel = reportRepository.findByReportExcel(reportDate);
         List<EmployeeExportExcelContractEnd> employeeExportExcelContractEnds = empTerminationContractRepository.findByEmployee(reportDate);
         List<ExportExcelEmpRest> exportExcelEmpRests = reportRepository.findByReportExcelEmpRest(reportDate);
-        exportExcel.initializeData(reportExcel, employeeExportExcelContractEnds, exportExcelEmpRests, "src/main/resources/template/bgglg-excel.xlsx");
+        exportExcel.initializeData(reportExcel, employeeExportExcelContractEnds, exportExcelEmpRests, "src/main/resources/template/BGGLG_EXCEL.xlsx");
         return exportExcel.export();
     }
 }
