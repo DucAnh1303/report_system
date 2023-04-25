@@ -4,7 +4,6 @@ import com.example.itspower.exception.ReasonException;
 import com.example.itspower.response.BaseResponse;
 import com.example.itspower.service.ViewDetailService;
 import com.example.itspower.service.ViewService;
-import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -56,22 +53,9 @@ public class ViewController {
     }
 
     @GetMapping("/exportExcel")
-    public Object exportExcel(@RequestParam("reportDate") String reportDate, HttpServletResponse response) {
+    public byte[] exportExcel(@RequestParam("reportDate") String reportDate) {
         try {
-            String fileName = "bgglg-" + reportDate + ".xlsx";
-            response.setContentType("application/octet-stream");
-            response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
-            InputStream inputStream = viewDetailService.exportExcel(reportDate).getInputStream();
-            byte[] buffer = new byte[1024];
-            int len;
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            while ((len = inputStream.read(buffer)) > 0) {
-                outputStream.write(buffer, 0, len);
-            }
-            byte[] data = outputStream.toByteArray();
-            response.flushBuffer();
-            response.getOutputStream().write(data);
-            return response;
+            return viewDetailService.exportExcel(reportDate);
         } catch (Exception e) {
             throw new ReasonException(HttpStatus.NOT_FOUND.value(), ERROR, e);
         }

@@ -4,33 +4,27 @@ package com.example.itspower.service.exportexcel;
 import com.example.itspower.response.export.EmployeeExportExcelContractEnd;
 import com.example.itspower.response.export.ExportExcelDtoReport;
 import com.example.itspower.response.export.ExportExcelEmpRest;
-import lombok.Data;
+import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFFont;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
 @Component
-@Data
 public class ExportExcel {
-    private XSSFWorkbook workbook;
-    private XSSFSheet sheet;
-    private XSSFSheet sheet1;
-    private XSSFSheet sheet2;
-    private XSSFSheet sheet3;
-    private XSSFSheet sheet4;
-    private XSSFSheet sheet5;
+    private Workbook workbook  =new SXSSFWorkbook();
+    private Sheet sheet;
+    private Sheet sheet1;
+    private Sheet sheet2;
+    private Sheet sheet3;
+    private Sheet sheet4;
+    private Sheet sheet5;
     private List<ExportExcelDtoReport> reportExcel;
     private List<EmployeeExportExcelContractEnd> reportEmpContractEnd;
     private List<ExportExcelEmpRest> exportExcelEmpRests;
@@ -46,7 +40,7 @@ public class ExportExcel {
         this.exportExcelEmpRests = exportExcelEmpRests;
     }
 
-    static void createCell(Row row, int columnCount, Object value, XSSFCellStyle style) {
+    static void createCell(Row row, int columnCount, Object value, CellStyle style) {
         Cell cell = row.createCell(columnCount);
         if (value instanceof Integer) {
             cell.setCellValue((Integer) value);
@@ -62,9 +56,8 @@ public class ExportExcel {
 
     private void writeDataLines() throws IOException {
         Resource resource = resourceLoader.getResource("classpath:template/BGGLG_EXCEL.xlsx");
-//        FileInputStream target = new FileInputStream(file);
-        InputStream targetStream = resource.getInputStream();
-        workbook = (XSSFWorkbook) WorkbookFactory.create(targetStream);
+        InputStream inp = resource.getInputStream();
+        workbook = WorkbookFactory.create(inp);
         sheet = workbook.getSheetAt(0);
         sheet1 = workbook.getSheetAt(1);
         sheet2 = workbook.getSheetAt(2);
@@ -74,9 +67,9 @@ public class ExportExcel {
         int rowCount = 7;
         int rowCount1 = 7;
         int rowCount2 = 7;
-        XSSFCellStyle style = workbook.createCellStyle();
-        XSSFCellStyle style1 = workbook.createCellStyle();
-        XSSFFont font = workbook.createFont();
+        CellStyle style = workbook.createCellStyle();
+        CellStyle style1 = workbook.createCellStyle();
+        XSSFFont font = (XSSFFont) workbook.createFont();
         font.setFontHeight(14);
         style.setFont(font);
         style.setBorderTop(BorderStyle.THIN); // Đường viền mỏng phía dưới
@@ -163,13 +156,12 @@ public class ExportExcel {
         cell.setCellStyle(cellStyle);
     }
 
-    public InputStreamResource export() throws IOException, NoSuchFieldException, IllegalAccessException {
+    public byte[] export() throws IOException {
         writeDataLines();
-        ByteArrayOutputStream targetStream = new ByteArrayOutputStream("classpath:template/BGGLG_EXCEL.xlsx".length());
-        workbook.write(targetStream);
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        workbook.write(bos);
+        bos.close();
         workbook.close();
-        targetStream.close();
-        InputStreamResource resource = new InputStreamResource(new ByteArrayInputStream(targetStream.toByteArray()));
-        return resource;
+        return bos.toByteArray();
     }
 }
