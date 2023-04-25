@@ -4,24 +4,25 @@ package com.example.itspower.service.exportexcel;
 import com.example.itspower.response.export.EmployeeExportExcelContractEnd;
 import com.example.itspower.response.export.ExportExcelDtoReport;
 import com.example.itspower.response.export.ExportExcelEmpRest;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 @Component
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class ExportExcel {
     private XSSFWorkbook workbook;
     private XSSFSheet sheet;
@@ -33,13 +34,16 @@ public class ExportExcel {
     private List<ExportExcelDtoReport> reportExcel;
     private List<EmployeeExportExcelContractEnd> reportEmpContractEnd;
     private List<ExportExcelEmpRest> exportExcelEmpRests;
-    private String file;
+    private final ResourceLoader resourceLoader;
 
-    public void initializeData(List<ExportExcelDtoReport> reportExcel, List<EmployeeExportExcelContractEnd> reportEmpContractEnd, List<ExportExcelEmpRest> exportExcelEmpRests, String file) {
+    public ExportExcel(ResourceLoader resourceLoader) {
+        this.resourceLoader = resourceLoader;
+    }
+
+    public void initializeData(List<ExportExcelDtoReport> reportExcel, List<EmployeeExportExcelContractEnd> reportEmpContractEnd, List<ExportExcelEmpRest> exportExcelEmpRests) {
         this.reportExcel = reportExcel;
         this.reportEmpContractEnd = reportEmpContractEnd;
         this.exportExcelEmpRests = exportExcelEmpRests;
-        this.file = file;
     }
 
     static void createCell(Row row, int columnCount, Object value, XSSFCellStyle style) {
@@ -56,9 +60,10 @@ public class ExportExcel {
         cell.setCellStyle(style);
     }
 
-    private void writeDataLines() throws IOException{
-        FileInputStream target = new FileInputStream(file);
-        InputStream targetStream = new ByteArrayInputStream(target.readAllBytes());
+    private void writeDataLines() throws IOException {
+        Resource resource = resourceLoader.getResource("classpath:template/BGGLG_EXCEL.xlsx");
+//        FileInputStream target = new FileInputStream(file);
+        InputStream targetStream = resource.getInputStream();
         workbook = (XSSFWorkbook) WorkbookFactory.create(targetStream);
         sheet = workbook.getSheetAt(0);
         sheet1 = workbook.getSheetAt(1);
@@ -80,6 +85,7 @@ public class ExportExcel {
         style.setBorderRight(BorderStyle.THIN);
         style.setAlignment(HorizontalAlignment.CENTER); // Căn giữa ngang
         style.setVerticalAlignment(VerticalAlignment.CENTER);
+        style1.setFont(font);
         style1.setAlignment(HorizontalAlignment.CENTER); // Căn giữa ngang
         style1.setVerticalAlignment(VerticalAlignment.CENTER); // Căn giữa dọc
         Row row1 = sheet.createRow(4);
@@ -138,6 +144,7 @@ public class ExportExcel {
             createCell(row, columnCount, "", style);
         }
     }
+
     private void creatCellFormatStr(Row row, int getCell, String value, CellStyle cellStyle) {
         Cell cell = row.createCell(getCell);
         cell.setCellValue(value);
@@ -158,7 +165,7 @@ public class ExportExcel {
 
     public InputStreamResource export() throws IOException, NoSuchFieldException, IllegalAccessException {
         writeDataLines();
-        ByteArrayOutputStream targetStream = new ByteArrayOutputStream(file.length());
+        ByteArrayOutputStream targetStream = new ByteArrayOutputStream("classpath:template/BGGLG_EXCEL.xlsx".length());
         workbook.write(targetStream);
         workbook.close();
         targetStream.close();
