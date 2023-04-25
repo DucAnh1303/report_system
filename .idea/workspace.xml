@@ -6,10 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="d8e811f7-ab85-440d-81dd-29fe6388095e" name="Changes" comment="fix api export excel">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/itspower/service/exportexcel/ExportExcel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/itspower/service/exportexcel/ExportExcel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/template/BGGLG_EXCEL.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/template/BGGLG_EXCEL.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/itspower/service/exportexcel/ExportExcel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/itspower/service/exportexcel/ExportExcel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/template/BGGLG_EXCEL.xls" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/template/BGGLG_EXCEL.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/template/BGGLG_EXCEL.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/its-power-0.0.1-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/its-power-0.0.1-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/its-power-0.0.1-SNAPSHOT.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/target/its-power-0.0.1-SNAPSHOT.jar.original" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-com.example.itspower.ItsPowerApplicationTests.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-com.example.itspower.ItsPowerApplicationTests.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/com.example.itspower.ItsPowerApplicationTests.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/com.example.itspower.ItsPowerApplicationTests.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -260,14 +263,8 @@
       <workItem from="1682421520707" duration="1109000" />
       <workItem from="1682437918415" duration="2104000" />
       <workItem from="1682440106271" duration="1181000" />
-      <workItem from="1682441314521" duration="446000" />
-    </task>
-    <task id="LOCAL-00051" summary="api report">
-      <created>1679677971228</created>
-      <option name="number" value="00051" />
-      <option name="presentableId" value="LOCAL-00051" />
-      <option name="project" value="LOCAL" />
-      <updated>1679677971228</updated>
+      <workItem from="1682441314521" duration="950000" />
+      <workItem from="1682442337489" duration="728000" />
     </task>
     <task id="LOCAL-00052" summary="fix view report">
       <created>1680101435077</created>
@@ -605,7 +602,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682441191462</updated>
     </task>
-    <option name="localTasksCounter" value="100" />
+    <task id="LOCAL-00100" summary="fix api export excel">
+      <created>1682442131184</created>
+      <option name="number" value="00100" />
+      <option name="presentableId" value="LOCAL-00100" />
+      <option name="project" value="LOCAL" />
+      <updated>1682442131184</updated>
+    </task>
+    <option name="localTasksCounter" value="101" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
