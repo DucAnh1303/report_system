@@ -56,7 +56,7 @@ public class ExportExcel {
         cell.setCellStyle(style);
     }
 
-    private void writeDataLines() throws IOException, NoSuchFieldException, IllegalAccessException {
+    private void writeDataLines() throws IOException{
         FileInputStream target = new FileInputStream(file);
         InputStream targetStream = new ByteArrayInputStream(target.readAllBytes());
         workbook = (XSSFWorkbook) WorkbookFactory.create(targetStream);

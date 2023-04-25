@@ -55,9 +55,10 @@ public class ViewController {
     public HttpServletResponse exportExcel(@RequestParam("reportDate") String reportDate, HttpServletResponse response) {
         try {
             String fileName = "bgglg-" + reportDate + ".xlsx";
-            response.setContentType("application/vnd.ms-excel");
-            response.setHeader("Content-Disposition", "attachment; filename= " + fileName);
+            response.setContentType("application/octet-stream");
+            response.setHeader("Content-Disposition", "attachment; filename = " + fileName);
             InputStream inputStream = viewDetailService.exportExcel(reportDate).getInputStream();
+            System.out.printf("=================="+viewDetailService.exportExcel(reportDate).getInputStream());
             byte[] buffer = new byte[1024];
             int len;
             while ((len = inputStream.read(buffer)) > 0) {
