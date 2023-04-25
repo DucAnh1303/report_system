@@ -18,7 +18,7 @@ import java.util.List;
 
 @Component
 public class ExportExcel {
-    private Workbook workbook  =new SXSSFWorkbook();
+    private Workbook workbook = new SXSSFWorkbook();
     private Sheet sheet;
     private Sheet sheet1;
     private Sheet sheet2;
@@ -55,7 +55,7 @@ public class ExportExcel {
     }
 
     private void writeDataLines() throws IOException {
-        Resource resource = resourceLoader.getResource("classpath:template/BGGLG_EXCEL.xlsx");
+        Resource resource = resourceLoader.getResource("classpath:template/BGGLG_EXCEL.xls");
         InputStream inp = resource.getInputStream();
         workbook = WorkbookFactory.create(inp);
         sheet = workbook.getSheetAt(0);
@@ -79,6 +79,7 @@ public class ExportExcel {
         style.setAlignment(HorizontalAlignment.CENTER); // Căn giữa ngang
         style.setVerticalAlignment(VerticalAlignment.CENTER);
         style1.setFont(font);
+        style1.setWrapText(true);
         style1.setAlignment(HorizontalAlignment.CENTER); // Căn giữa ngang
         style1.setVerticalAlignment(VerticalAlignment.CENTER); // Căn giữa dọc
         Row row1 = sheet.createRow(4);
@@ -158,9 +159,12 @@ public class ExportExcel {
     public byte[] export() throws IOException {
         writeDataLines();
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        workbook.write(bos);
-        bos.close();
-        workbook.close();
+        try {
+            workbook.write(bos);
+        } finally {
+            bos.close();
+            workbook.close();
+        }
         return bos.toByteArray();
     }
 }

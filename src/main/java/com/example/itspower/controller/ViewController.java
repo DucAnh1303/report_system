@@ -2,6 +2,7 @@ package com.example.itspower.controller;
 
 import com.example.itspower.exception.ReasonException;
 import com.example.itspower.response.BaseResponse;
+import com.example.itspower.response.SuccessResponse;
 import com.example.itspower.service.ViewDetailService;
 import com.example.itspower.service.ViewService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,9 +54,9 @@ public class ViewController {
     }
 
     @GetMapping("/exportExcel")
-    public byte[] exportExcel(@RequestParam("reportDate") String reportDate) {
+    public ResponseEntity<Object> exportExcel(@RequestParam("reportDate") String reportDate) {
         try {
-            return viewDetailService.exportExcel(reportDate);
+            return ResponseEntity.status(HttpStatus.OK).body(new SuccessResponse<>(viewDetailService.exportExcel(reportDate)));
         } catch (Exception e) {
             throw new ReasonException(HttpStatus.NOT_FOUND.value(), ERROR, e);
         }
