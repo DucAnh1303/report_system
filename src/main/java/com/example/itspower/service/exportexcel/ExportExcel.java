@@ -104,8 +104,8 @@ public class ExportExcel {
             sumEmp += data1.getRiceEmp();
             sumCus += data1.getRiceCus();
         }
-        rowString = rowCount + 1;
-        rowKey = rowCount + 5;
+        rowString = rowCount + 2;
+        rowKey = rowCount + 6;
         Row rowTotal = sheet3.createRow(rowCount);
         Row row10 = sheet4.createRow(rowString);
         Row rowNameKey = sheet5.createRow(rowKey);
