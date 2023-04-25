@@ -4,10 +4,14 @@ import com.example.itspower.exception.ReasonException;
 import com.example.itspower.response.BaseResponse;
 import com.example.itspower.service.ViewDetailService;
 import com.example.itspower.service.ViewService;
+import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
@@ -52,19 +56,20 @@ public class ViewController {
     }
 
     @GetMapping("/exportExcel")
-    public HttpServletResponse exportExcel(@RequestParam("reportDate") String reportDate, HttpServletResponse response) {
+    public Object exportExcel(@RequestParam("reportDate") String reportDate, HttpServletResponse response) {
         try {
             String fileName = "bgglg-" + reportDate + ".xlsx";
-            response.setContentType("application/octet-stream");
-            response.setHeader("Content-Disposition", "attachment; filename = " + fileName);
+            response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
             InputStream inputStream = viewDetailService.exportExcel(reportDate).getInputStream();
-            System.out.printf("=================="+viewDetailService.exportExcel(reportDate).getInputStream());
             byte[] buffer = new byte[1024];
             int len;
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             while ((len = inputStream.read(buffer)) > 0) {
-                response.getOutputStream().write(buffer, 0, len);
+                outputStream.write(buffer, 0, len);
             }
-            response.flushBuffer();
+            byte[] data = outputStream.toByteArray();
+            response.getOutputStream().write(data);
             return response;
         } catch (Exception e) {
             throw new ReasonException(HttpStatus.NOT_FOUND.value(), ERROR, e);
