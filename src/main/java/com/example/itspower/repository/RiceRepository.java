@@ -9,24 +9,30 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 @Component
 public class RiceRepository {
     @Autowired
     private RiceJpaRepository riceJpaRepository;
 
-    public RiceEntity getByRiceDetail(Integer reportId) {
+    public Optional<RiceEntity> getByRiceDetail(Integer reportId) {
         return riceJpaRepository.findByReportId(reportId);
     }
 
 
     public RiceEntity saveRice(RiceRequest riceRequest, Integer reportId) {
-        RiceEntity entity = new RiceEntity();
-        entity.setReportId(reportId);
-        entity.setRiceEmp(riceRequest.getRiceEmp());
-        entity.setRiceCus(riceRequest.getRiceCus());
-        entity.setRiceVip(riceRequest.getRiceVip());
-        return riceJpaRepository.save(entity);
+        try{
+            RiceEntity entity = new RiceEntity();
+            entity.setReportId(reportId);
+            entity.setRiceEmp(riceRequest.getRiceEmp());
+            entity.setRiceCus(riceRequest.getRiceCus());
+            entity.setRiceVip(riceRequest.getRiceVip());
+            return riceJpaRepository.save(entity);
+        }catch (Exception e){
+            throw new RuntimeException(e.getMessage());
+        }
+
     }
     @Transactional
     public RiceEntity updateRice(RiceRequest riceRequest, Integer reportId) {

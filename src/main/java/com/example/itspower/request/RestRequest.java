@@ -4,10 +4,9 @@ import lombok.Data;
 
 @Data
 public class RestRequest {
-    private int restId;
+    private Integer restId;
     private int reasonId;
-    private String restName;
-    private String restEmployeeLabor;
+    private String restNameAndLabor;
     private String session;
     private Float workTime;
     private boolean isDelete = false;

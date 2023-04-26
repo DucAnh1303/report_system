@@ -20,7 +20,6 @@ public class ReasonController {
     private ReasonService reasonService;
 
     @GetMapping("/reason")
-    @CrossOrigin
     public ResponseEntity<BaseResponse<Object>> searchALl() {
         try {
             BaseResponse<Object> res = new BaseResponse<>(HttpStatus.CREATED.value(), SUCCESS, reasonService.searchALl());
@@ -32,7 +31,6 @@ public class ReasonController {
     }
 
     @PostMapping("/reason/save")
-    @CrossOrigin
     public ResponseEntity<BaseResponse<Object>> save(@RequestBody List<ReasonRequest> reasonRequest) {
         try {
             BaseResponse<Object> res = new BaseResponse<>(HttpStatus.CREATED.value(), SUCCESS, reasonService.save(reasonRequest));
@@ -44,7 +42,6 @@ public class ReasonController {
     }
 
     @PutMapping("/reason/edit")
-    @CrossOrigin
     public ResponseEntity<BaseResponse<Object>>  edit(@RequestParam("id") int id, @RequestBody ReasonRequest reasonRequest) {
         try {
             if (reasonService.edit(reasonRequest,id) ==null){
@@ -61,7 +58,6 @@ public class ReasonController {
     }
 
     @GetMapping("/reason/details")
-    @CrossOrigin
     public ResponseEntity<BaseResponse<Object>>  details(@RequestParam("id") int id) {
         try{
             if(reasonService.searchById(id).size() == 0){
@@ -77,7 +73,6 @@ public class ReasonController {
     }
 
     @DeleteMapping("/reason/deleteALl")
-    @CrossOrigin
     public ResponseEntity<BaseResponse<Object>>  deleteAll() {
         try{
             reasonService.deleteAll();
@@ -89,7 +84,6 @@ public class ReasonController {
 
     }
     @DeleteMapping("/reason/delete")
-    @CrossOrigin
     public ResponseEntity<Object> delete(@RequestParam("id") int id) {
         try{
             reasonService.deleteById(id);

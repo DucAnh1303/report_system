@@ -5,7 +5,6 @@ import com.example.itspower.model.resultset.UserDto;
 import com.example.itspower.model.usertoken.UserRefreshToken;
 import com.example.itspower.model.usertoken.UserResponse;
 import com.example.itspower.request.search.UserSearchRequest;
-import com.example.itspower.request.userrequest.UserDeleteRequest;
 import com.example.itspower.request.userrequest.UserUpdateRequest;
 import com.example.itspower.response.SuccessResponse;
 import com.example.itspower.response.search.UserAulogin;
@@ -43,7 +42,6 @@ public class UserController {
 
 
     @PostMapping("/api/save")
-    @CrossOrigin
     public ResponseEntity<SuccessResponse<Object>> saveData(@Validated @RequestBody UserRequest userRequest) throws GeneralSecurityException {
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(userRequest));
@@ -53,20 +51,17 @@ public class UserController {
     }
 
     @PostMapping("/api/update")
-    @CrossOrigin
     public ResponseEntity<Object> update(@Valid @RequestBody UserUpdateRequest userRequest, @RequestParam("userId") int id) {
         return userService.update(userRequest, id);
     }
 
     @PostMapping("/api/delete")
-    @CrossOrigin
     public ResponseEntity<Object> delete(@RequestParam("id")Integer id) {
         userService.delete(id);
         return ResponseEntity.status(HttpStatus.OK).body(new SuccessResponse<>(HttpStatus.OK.value(), "delete success", ""));
     }
 
     @PostMapping("/api/login")
-    @CrossOrigin
     public ResponseEntity<Object> login(@Validated @RequestBody UserAulogin userAulogin) {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userAulogin.getUserLogin(), userAulogin.getPassword()));
@@ -82,7 +77,6 @@ public class UserController {
     }
 
     @PostMapping("/api/refresh-token")
-    @CrossOrigin
     public ResponseEntity<Object> refreshToken(@RequestParam("refreshToken") String refreshToken) {
         try {
             String accessToken = jwtToken.getUserNameFromJWT(refreshToken);
@@ -97,7 +91,6 @@ public class UserController {
     }
 
     @PostMapping("/getAllUser")
-    @CrossOrigin
     public Object getAllDemarcation(@RequestBody Optional<UserSearchRequest> request,
                                     @RequestParam(defaultValue = "10") int pageSize,
                                     @RequestParam(defaultValue = "1") int pageNo) {

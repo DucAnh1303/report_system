@@ -15,14 +15,17 @@ import javax.persistence.*;
                 columns = {
                         @ColumnResult(name = "restId", type = Integer.class),
                         @ColumnResult(name = "restName", type = String.class),
+                        @ColumnResult(name = "session", type = String.class),
+                        @ColumnResult(name = "workTime", type = Float.class),
                         @ColumnResult(name = "reasonId", type = Integer.class),
                         @ColumnResult(name = "reasonName", type = String.class)
+
                 }
         )
 )
 @NamedNativeQuery(
         name = "find_by_rest",
-        query = "select r.id as restId, r.rest_name as restName,r3.id as reasonId, r3.name as reasonName from rest r " +
+        query = "select r.id as restId, CONCAT(r.rest_name,' - ',r.employee_labor) as restName,r.session,r.work_time as workTime,r3.id as reasonId, r3.name as reasonName from rest r " +
                 "left join report r2 on r.report_id = r2.id " +
                 "left join reason r3 on r3.id =r.reason_id  where r.report_id = :reportId ",
         resultSetMapping = "rest_dto"

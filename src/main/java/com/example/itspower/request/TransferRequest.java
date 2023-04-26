@@ -6,7 +6,7 @@ import lombok.Data;
 public class TransferRequest {
 
     private Integer groupId ;
-    private int transferId;
-    private int transferNum;
+    private Integer transferId;
+    private Integer transferNum;
     private int type;
 }

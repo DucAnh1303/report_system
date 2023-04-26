@@ -21,5 +21,7 @@ public class ReportDto {
     private Integer studentNum;
     private Integer totalRice;
     private Date reportDate;
+    private Integer professionNotLabor;
+    private Integer professionLabor;
 
 }

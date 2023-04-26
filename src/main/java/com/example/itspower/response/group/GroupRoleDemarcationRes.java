@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 public class GroupRoleDemarcationRes {
     private Integer groupId;
     private String groupName;
-    private Integer demarcationAvailable;
+    private Float demarcationAvailable;
 
     public GroupRoleDemarcationRes(GroupEntity groupEntity) {
         this.groupId = groupEntity.getId();
@@ -17,7 +17,7 @@ public class GroupRoleDemarcationRes {
         this.demarcationAvailable = groupEntity.getDemarcationAvailable();
     }
 
-    public GroupRoleDemarcationRes(Integer groupId, Integer demarcationAvailable, String groupName) {
+    public GroupRoleDemarcationRes(Integer groupId, Float demarcationAvailable, String groupName) {
         this.groupId = groupId;
         this.groupName = groupName;
         this.demarcationAvailable = demarcationAvailable;

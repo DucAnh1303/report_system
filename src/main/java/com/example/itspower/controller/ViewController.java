@@ -2,12 +2,16 @@ package com.example.itspower.controller;
 
 import com.example.itspower.exception.ReasonException;
 import com.example.itspower.response.BaseResponse;
+import com.example.itspower.response.SuccessResponse;
 import com.example.itspower.service.ViewDetailService;
 import com.example.itspower.service.ViewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -27,13 +31,11 @@ public class ViewController {
     private ViewDetailService viewDetailService;
 
     @GetMapping("/all")
-    @CrossOrigin
     public ResponseEntity<Object> getAll(@RequestParam("date") String date) {
         return ResponseEntity.status(HttpStatus.OK).body(viewService.getView(date));
     }
 
     @GetMapping("/groupRoleViewDetails")
-    @CrossOrigin
     public ResponseEntity<BaseResponse<Object>> searchAllViewDetails(@RequestParam("reportDate") String reportDate) {
         try {
             Date date = new SimpleDateFormat("yyyy/MM/dd").parse(reportDate);
@@ -52,10 +54,9 @@ public class ViewController {
     }
 
     @GetMapping("/exportExcel")
-    @CrossOrigin
-    public ResponseEntity<Object> exportExcel() {
+    public ResponseEntity<Object> exportExcel(@RequestParam("reportDate") String reportDate) {
         try {
-            return null;
+            return ResponseEntity.status(HttpStatus.OK).body(new SuccessResponse<>(viewDetailService.exportExcel(reportDate)));
         } catch (Exception e) {
             throw new ReasonException(HttpStatus.NOT_FOUND.value(), ERROR, e);
         }

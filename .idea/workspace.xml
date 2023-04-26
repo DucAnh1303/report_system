@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d8e811f7-ab85-440d-81dd-29fe6388095e" name="Changes" comment="add api get All User" />
+    <list default="true" id="d8e811f7-ab85-440d-81dd-29fe6388095e" name="Changes" comment="fix api export excel">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -23,7 +25,7 @@
     </option>
   </component>
   <component name="Git.Merge.Settings">
-    <option name="BRANCH" value="feature/report" />
+    <option name="BRANCH" value="ducanh" />
   </component>
   <component name="Git.Settings">
     <excluded-from-favorite>
@@ -41,7 +43,7 @@
     </excluded-from-favorite>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="feature/report" />
+        <entry key="$PROJECT_DIR$" value="develop" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -72,9 +74,9 @@
     </option>
     <option name="myId2Visible">
       <map>
-        <entry key="com.haulmont.jpb.jpaInspector" value="true" />
+        <entry key="com.haulmont.jpb.jpaInspector" value="false" />
         <entry key="com.haulmont.jpb.jpaPalette" value="false" />
-        <entry key="com.haulmont.jpb.jpaStructure" value="true" />
+        <entry key="com.haulmont.jpb.jpaStructure" value="false" />
       </map>
     </option>
   </component>
@@ -95,36 +97,36 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/projectReport/ITS-Power_By_DA/src/main/java/com/example/itspower/request/search",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices",
-    "spring.configuration.checksum": "da0449ae01b7f5aab043103a07dfd4e6",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/OCA/Servlet-Demo&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;e3e0fe51988686fb9d3c0e5d9479cc62&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.example.itspower.service.impl" />
@@ -135,13 +137,23 @@
       <recent name="D:\its-power\its-power\src\main\java\com\example\itspower" />
       <recent name="D:\its-power\its-power\src\main\java\com\example\itspower\component\util" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\ideiaProject\Bgglg\src\main\resources\template" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.example.itspower.security" />
       <recent name="com.example.itspower.controller" />
       <recent name="com.example.itspower.repository" />
       <recent name="com.example.itspower.component.util" />
       <recent name="com.example.itspower.response" />
-      <recent name="com.example.itspower.type" />
     </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="SpringBootApplicationConfigurationType" />
+      </set>
+    </option>
   </component>
   <component name="RunManager">
     <configuration default="true" type="JetRunConfigurationType">
@@ -155,13 +167,24 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ItsPowerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
-      <module name="ITS-Power_By_DA" />
+    <configuration name="ItsPowerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true">
+      <module name="its-power" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.itspower.ItsPowerApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.itspower.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.ItsPowerApplication" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -216,174 +239,28 @@
       <workItem from="1681626204995" duration="932000" />
       <workItem from="1681631613691" duration="5090000" />
       <workItem from="1681643927378" duration="2863000" />
-    </task>
-    <task id="LOCAL-00029" summary="api report">
-      <created>1679295474718</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1679295474718</updated>
-    </task>
-    <task id="LOCAL-00030" summary="api report">
-      <created>1679408129489</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1679408129489</updated>
-    </task>
-    <task id="LOCAL-00031" summary="api report">
-      <created>1679412428010</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1679412428010</updated>
-    </task>
-    <task id="LOCAL-00032" summary="api report">
-      <created>1679412710667</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
-      <option name="project" value="LOCAL" />
-      <updated>1679412710667</updated>
-    </task>
-    <task id="LOCAL-00033" summary="api report">
-      <created>1679413296326</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1679413296326</updated>
-    </task>
-    <task id="LOCAL-00034" summary="api report">
-      <created>1679413502887</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1679413502887</updated>
-    </task>
-    <task id="LOCAL-00035" summary="api report">
-      <created>1679413514197</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1679413514197</updated>
-    </task>
-    <task id="LOCAL-00036" summary="api report">
-      <created>1679495076988</created>
-      <option name="number" value="00036" />
-      <option name="presentableId" value="LOCAL-00036" />
-      <option name="project" value="LOCAL" />
-      <updated>1679495076988</updated>
-    </task>
-    <task id="LOCAL-00037" summary="api report">
-      <created>1679495119514</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
-      <option name="project" value="LOCAL" />
-      <updated>1679495119514</updated>
-    </task>
-    <task id="LOCAL-00038" summary="api report">
-      <created>1679495139687</created>
-      <option name="number" value="00038" />
-      <option name="presentableId" value="LOCAL-00038" />
-      <option name="project" value="LOCAL" />
-      <updated>1679495139687</updated>
-    </task>
-    <task id="LOCAL-00039" summary="api report">
-      <created>1679495439102</created>
-      <option name="number" value="00039" />
-      <option name="presentableId" value="LOCAL-00039" />
-      <option name="project" value="LOCAL" />
-      <updated>1679495439102</updated>
-    </task>
-    <task id="LOCAL-00040" summary="api report">
-      <created>1679495535720</created>
-      <option name="number" value="00040" />
-      <option name="presentableId" value="LOCAL-00040" />
-      <option name="project" value="LOCAL" />
-      <updated>1679495535720</updated>
-    </task>
-    <task id="LOCAL-00041" summary="api report">
-      <created>1679502167859</created>
-      <option name="number" value="00041" />
-      <option name="presentableId" value="LOCAL-00041" />
-      <option name="project" value="LOCAL" />
-      <updated>1679502167859</updated>
-    </task>
-    <task id="LOCAL-00042" summary="api detail">
-      <created>1679536277504</created>
-      <option name="number" value="00042" />
-      <option name="presentableId" value="LOCAL-00042" />
-      <option name="project" value="LOCAL" />
-      <updated>1679536277504</updated>
-    </task>
-    <task id="LOCAL-00043" summary="api detail">
-      <created>1679537127657</created>
-      <option name="number" value="00043" />
-      <option name="presentableId" value="LOCAL-00043" />
-      <option name="project" value="LOCAL" />
-      <updated>1679537127657</updated>
-    </task>
-    <task id="LOCAL-00044" summary="api detail">
-      <created>1679540909044</created>
-      <option name="number" value="00044" />
-      <option name="presentableId" value="LOCAL-00044" />
-      <option name="project" value="LOCAL" />
-      <updated>1679540909044</updated>
-    </task>
-    <task id="LOCAL-00045" summary="api detail">
-      <created>1679542444578</created>
-      <option name="number" value="00045" />
-      <option name="presentableId" value="LOCAL-00045" />
-      <option name="project" value="LOCAL" />
-      <updated>1679542444578</updated>
-    </task>
-    <task id="LOCAL-00046" summary="api detail">
-      <created>1679648070243</created>
-      <option name="number" value="00046" />
-      <option name="presentableId" value="LOCAL-00046" />
-      <option name="project" value="LOCAL" />
-      <updated>1679648070243</updated>
-    </task>
-    <task id="LOCAL-00047" summary="api report">
-      <created>1679673336425</created>
-      <option name="number" value="00047" />
-      <option name="presentableId" value="LOCAL-00047" />
-      <option name="project" value="LOCAL" />
-      <updated>1679673336425</updated>
-    </task>
-    <task id="LOCAL-00048" summary="api report">
-      <created>1679673583816</created>
-      <option name="number" value="00048" />
-      <option name="presentableId" value="LOCAL-00048" />
-      <option name="project" value="LOCAL" />
-      <updated>1679673583816</updated>
-    </task>
-    <task id="LOCAL-00049" summary="api report">
-      <created>1679674731108</created>
-      <option name="number" value="00049" />
-      <option name="presentableId" value="LOCAL-00049" />
-      <option name="project" value="LOCAL" />
-      <updated>1679674731108</updated>
-    </task>
-    <task id="LOCAL-00050" summary="api report">
-      <created>1679676905252</created>
-      <option name="number" value="00050" />
-      <option name="presentableId" value="LOCAL-00050" />
-      <option name="project" value="LOCAL" />
-      <updated>1679676905253</updated>
-    </task>
-    <task id="LOCAL-00051" summary="api report">
-      <created>1679677971228</created>
-      <option name="number" value="00051" />
-      <option name="presentableId" value="LOCAL-00051" />
-      <option name="project" value="LOCAL" />
-      <updated>1679677971228</updated>
-    </task>
-    <task id="LOCAL-00052" summary="fix view report">
-      <created>1680101435077</created>
-      <option name="number" value="00052" />
-      <option name="presentableId" value="LOCAL-00052" />
-      <option name="project" value="LOCAL" />
-      <updated>1680101435077</updated>
+      <workItem from="1681957705853" duration="606000" />
+      <workItem from="1681958506567" duration="699000" />
+      <workItem from="1681965035897" duration="64000" />
+      <workItem from="1681965778835" duration="1282000" />
+      <workItem from="1682131271416" duration="16777000" />
+      <workItem from="1682177888472" duration="2428000" />
+      <workItem from="1682211645612" duration="693000" />
+      <workItem from="1682236092101" duration="78000" />
+      <workItem from="1682254678846" duration="3230000" />
+      <workItem from="1682338758682" duration="533000" />
+      <workItem from="1682348083069" duration="252000" />
+      <workItem from="1682348373821" duration="5474000" />
+      <workItem from="1682393979664" duration="14170000" />
+      <workItem from="1682420445934" duration="902000" />
+      <workItem from="1682421520707" duration="1109000" />
+      <workItem from="1682437918415" duration="2104000" />
+      <workItem from="1682440106271" duration="1181000" />
+      <workItem from="1682441314521" duration="950000" />
+      <workItem from="1682442337489" duration="2246000" />
+      <workItem from="1682444660564" duration="324000" />
+      <workItem from="1682474553306" duration="7000" />
+      <workItem from="1682478179953" duration="302000" />
     </task>
     <task id="LOCAL-00053" summary="api /groupRole/demarcation get and update">
       <created>1680187205183</created>
@@ -560,7 +437,175 @@
       <option name="project" value="LOCAL" />
       <updated>1681647586666</updated>
     </task>
-    <option name="localTasksCounter" value="78" />
+    <task id="LOCAL-00078" summary="add api get All User">
+      <created>1681962212172</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1681962212172</updated>
+    </task>
+    <task id="LOCAL-00079" summary="add api get All User">
+      <created>1681962351713</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1681962351713</updated>
+    </task>
+    <task id="LOCAL-00080" summary="add api get All User">
+      <created>1681963619313</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1681963619314</updated>
+    </task>
+    <task id="LOCAL-00081" summary="add api get All User">
+      <created>1681965065301</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1681965065301</updated>
+    </task>
+    <task id="LOCAL-00082" summary="fix api add request rest">
+      <created>1682009151537</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1682009151537</updated>
+    </task>
+    <task id="LOCAL-00083" summary="fix api add request rest">
+      <created>1682011417047</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1682011417047</updated>
+    </task>
+    <task id="LOCAL-00084" summary="fix api add request rest">
+      <created>1682011443045</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1682011443045</updated>
+    </task>
+    <task id="LOCAL-00085" summary="add api get All User">
+      <created>1682171811370</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1682171811370</updated>
+    </task>
+    <task id="LOCAL-00086" summary="add api get All User">
+      <created>1682178020279</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1682178020280</updated>
+    </task>
+    <task id="LOCAL-00087" summary="add api get All User">
+      <created>1682179107269</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1682179107269</updated>
+    </task>
+    <task id="LOCAL-00088" summary="add api get All User">
+      <created>1682179272288</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1682179272289</updated>
+    </task>
+    <task id="LOCAL-00089" summary="fix api export excel">
+      <created>1682346755167</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1682346755168</updated>
+    </task>
+    <task id="LOCAL-00090" summary="fix api export excel">
+      <created>1682349149380</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1682349149380</updated>
+    </task>
+    <task id="LOCAL-00091" summary="fix api export excel">
+      <created>1682353500268</created>
+      <option name="number" value="00091" />
+      <option name="presentableId" value="LOCAL-00091" />
+      <option name="project" value="LOCAL" />
+      <updated>1682353500268</updated>
+    </task>
+    <task id="LOCAL-00092" summary="fix api export excel">
+      <created>1682390474359</created>
+      <option name="number" value="00092" />
+      <option name="presentableId" value="LOCAL-00092" />
+      <option name="project" value="LOCAL" />
+      <updated>1682390474359</updated>
+    </task>
+    <task id="LOCAL-00093" summary="fix api export excel">
+      <created>1682407515172</created>
+      <option name="number" value="00093" />
+      <option name="presentableId" value="LOCAL-00093" />
+      <option name="project" value="LOCAL" />
+      <updated>1682407515172</updated>
+    </task>
+    <task id="LOCAL-00094" summary="fix api export excel">
+      <created>1682409710802</created>
+      <option name="number" value="00094" />
+      <option name="presentableId" value="LOCAL-00094" />
+      <option name="project" value="LOCAL" />
+      <updated>1682409710802</updated>
+    </task>
+    <task id="LOCAL-00095" summary="fix api export excel">
+      <created>1682409741143</created>
+      <option name="number" value="00095" />
+      <option name="presentableId" value="LOCAL-00095" />
+      <option name="project" value="LOCAL" />
+      <updated>1682409741143</updated>
+    </task>
+    <task id="LOCAL-00096" summary="fix api export excel">
+      <created>1682413868941</created>
+      <option name="number" value="00096" />
+      <option name="presentableId" value="LOCAL-00096" />
+      <option name="project" value="LOCAL" />
+      <updated>1682413868941</updated>
+    </task>
+    <task id="LOCAL-00097" summary="fix api export excel">
+      <created>1682419352913</created>
+      <option name="number" value="00097" />
+      <option name="presentableId" value="LOCAL-00097" />
+      <option name="project" value="LOCAL" />
+      <updated>1682419352913</updated>
+    </task>
+    <task id="LOCAL-00098" summary="fix api export excel">
+      <created>1682441143051</created>
+      <option name="number" value="00098" />
+      <option name="presentableId" value="LOCAL-00098" />
+      <option name="project" value="LOCAL" />
+      <updated>1682441143052</updated>
+    </task>
+    <task id="LOCAL-00099" summary="fix api export excel">
+      <created>1682441191462</created>
+      <option name="number" value="00099" />
+      <option name="presentableId" value="LOCAL-00099" />
+      <option name="project" value="LOCAL" />
+      <updated>1682441191462</updated>
+    </task>
+    <task id="LOCAL-00100" summary="fix api export excel">
+      <created>1682442131184</created>
+      <option name="number" value="00100" />
+      <option name="presentableId" value="LOCAL-00100" />
+      <option name="project" value="LOCAL" />
+      <updated>1682442131184</updated>
+    </task>
+    <task id="LOCAL-00101" summary="fix api export excel">
+      <created>1682443085584</created>
+      <option name="number" value="00101" />
+      <option name="presentableId" value="LOCAL-00101" />
+      <option name="project" value="LOCAL" />
+      <updated>1682443085585</updated>
+    </task>
+    <option name="localTasksCounter" value="102" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -590,10 +635,34 @@
     <MESSAGE value="fix view report" />
     <MESSAGE value="api /groupRole/demarcation get and update" />
     <MESSAGE value="fix bug search view" />
+    <MESSAGE value="fix api add request rest" />
     <MESSAGE value="add api get All User" />
-    <option name="LAST_COMMIT_MESSAGE" value="add api get All User" />
+    <MESSAGE value="fix api export excel" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix api export excel" />
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/itspower/service/impl/ImportEmployee.java</url>
+          <line>26</line>
+          <option name="timeStamp" value="63" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/itspower/service/impl/ImportEmployee.java</url>
+          <line>39</line>
+          <properties>
+            <option name="lambda-ordinal" value="-1" />
+          </properties>
+          <option name="timeStamp" value="64" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/itspower/service/impl/ViewDetailSerivceImpl.java</url>
+          <line>148</line>
+          <option name="timeStamp" value="65" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
         <PinnedItemInfo parentTag="com.sun.proxy.$Proxy127" memberName="h" />
@@ -603,7 +672,13 @@
     <watches-manager>
       <configuration name="SpringBootApplicationConfigurationType">
         <watch expression="(float) (totalEmpProductivity / totalEmployee)" language="JAVA" />
+        <watch expression="row.getCell(1)" language="JAVA" />
       </configuration>
     </watches-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Bgglg$ItsPowerApplication.ic" NAME="ItsPowerApplication Coverage Results" MODIFIED="1682417261710" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.example.itspower.*</FILTER>
+    </SUITE>
   </component>
 </project>

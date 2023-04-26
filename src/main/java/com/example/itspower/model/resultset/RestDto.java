@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 public class RestDto {
     private int restId;
     private String restName;
+    private String session;
+    private Float workTime;
     private int reasonId;
     private String reasonName;
 }

@@ -36,7 +36,7 @@ public class TransferEntity {
     @Column(name = "report_id")
     private Integer reportId = 0;
     @Column(name = "group_id")
-    private Integer groupId = 0;
+    private Integer groupId ;
     @Column(name = "is_access")
     private boolean isAccess;
     @Column(name = "transfer_date")
@@ -44,8 +44,4 @@ public class TransferEntity {
     @Column(name = "type")
     @Min(1)
     private Integer type = 0;
-    @Transient
-    private Integer parentId;
-    @Transient
-    private String  groupName;
 }

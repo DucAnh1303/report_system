@@ -180,7 +180,7 @@ public class GroupEntity implements Serializable {
     @Column(name = "parent_id")
     private Integer parentId;
     @Column(name = "demarcation_available")
-    private Integer demarcationAvailable;
+    private Float demarcationAvailable;
 
 
 }

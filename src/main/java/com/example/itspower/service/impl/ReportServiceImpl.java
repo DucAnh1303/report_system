@@ -1,28 +1,23 @@
 package com.example.itspower.service.impl;
 
-import com.example.itspower.component.util.DateUtils;
-import com.example.itspower.model.entity.GroupEntity;
-import com.example.itspower.model.entity.ReportEntity;
-import com.example.itspower.model.entity.RiceEntity;
-import com.example.itspower.model.entity.TransferEntity;
+import com.example.itspower.model.entity.*;
 import com.example.itspower.model.resultset.ReportDto;
 import com.example.itspower.model.resultset.RestDto;
 import com.example.itspower.repository.*;
+import com.example.itspower.repository.repositoryjpa.EmpTerminationContractRepository;
+import com.example.itspower.repository.repositoryjpa.EmployeeGroupRepository;
 import com.example.itspower.request.ReportRequest;
-import com.example.itspower.request.TransferRequest;
 import com.example.itspower.response.SuccessResponse;
 import com.example.itspower.response.report.ReportResponse;
 import com.example.itspower.service.ReportService;
+import com.example.itspower.util.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ReportServiceImpl implements ReportService {
@@ -36,6 +31,10 @@ public class ReportServiceImpl implements ReportService {
     private GroupRoleRepository groupRoleRepository;
     @Autowired
     private RiceRepository riceRepository;
+    @Autowired
+    private EmpTerminationContractRepository empTerminationContractRepository;
+    @Autowired
+    private EmployeeGroupRepository employeeGroupRepository;
 
     @Override
     public Object reportDto(String reportDate, int groupId) {
@@ -46,15 +45,8 @@ public class ReportServiceImpl implements ReportService {
         ReportDto reportDto = reportRepository.reportDto(reportDate, groupId);
         List<RestDto> restDtos = restRepository.getRests(reportDto.getId());
         List<TransferEntity> transferEntities = transferRepository.findByReportId(reportDto.getId());
-        for (TransferEntity transfer : transferEntities) {
-            Optional<GroupEntity> groupEntity = groupRoleRepository.findById(transfer.getGroupId());
-            if (groupEntity.isPresent()) {
-                transfer.setParentId(groupEntity.get().getParentId());
-                transfer.setGroupName(groupEntity.get().getGroupName());
-            }
-        }
-        RiceEntity riceEntity = riceRepository.getByRiceDetail(reportDto.getId());
-        return new ReportResponse(reportDto, riceEntity, restDtos, transferEntities);
+        Optional<RiceEntity> riceEntity = riceRepository.getByRiceDetail(reportDto.getId());
+        return new ReportResponse(reportDto, riceEntity.get(), restDtos, transferEntities);
     }
 
     @Override
@@ -67,33 +59,10 @@ public class ReportServiceImpl implements ReportService {
         if (entity.isPresent()) {
             return new SuccessResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "report date is exits", HttpStatus.INTERNAL_SERVER_ERROR.name());
         }
-        if (request.getRestNum() != request.getRestRequests().size()) {
-            return new SuccessResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "size rest not equal size effective", HttpStatus.INTERNAL_SERVER_ERROR.name());
-        }
-        for (TransferRequest transferRequests : request.getTransferRequests()) {
-            if (transferRequests.getGroupId() != null) {
-                if (groupId == transferRequests.getGroupId().intValue()) {
-                    return new SuccessResponse<>(HttpStatus.BAD_REQUEST.value(), "group name not current group user!", null);
-                }
-            }
-        }
-        boolean isCheck = check(request.getRiceRequests().getRiceCus(), request.getRiceRequests().getRiceEmp(), request.getRiceRequests().getRiceVip());
-        if (isCheck) {
-            return new SuccessResponse<>(HttpStatus.BAD_REQUEST.value(), "rise < 0", null);
-        }
-        boolean isCheckReport = checkReport(request);
-        if (isCheckReport) {
-            return new SuccessResponse<>(HttpStatus.BAD_REQUEST.value(), "partTimeNum or studentNum <0", null);
-        }
-        boolean isCheckTransfer = checkTransfer(request.getTransferRequests());
-        if (isCheckTransfer) {
-            return new SuccessResponse<>(HttpStatus.BAD_REQUEST.value(), "TransferNum <0", null);
-        }
         ReportEntity reportEntity = reportRepository.saveReport(request, groupId);
         riceRepository.saveRice(request.getRiceRequests(), reportEntity.getId());
         restRepository.saveRest(request.getRestRequests(), reportEntity.getId());
         transferRepository.saveTransfer(request.getTransferRequests(), reportEntity.getId());
-
         return ResponseEntity.ok(new SuccessResponse<>(HttpStatus.CREATED.value(), "report success", reportDto(DateUtils.formatDate(reportEntity.getReportDate()), reportEntity.getGroupId())));
     }
 
@@ -104,59 +73,58 @@ public class ReportServiceImpl implements ReportService {
         if (entity.isEmpty()) {
             return new SuccessResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "report is not Exits", HttpStatus.INTERNAL_SERVER_ERROR.name());
         }
-        for (TransferRequest transferRequests : request.getTransferRequests()) {
-            if (transferRequests.getTransferId() == 0) {
-                return new SuccessResponse<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "transferId not exits", null);
-            }
-            if (transferRequests.getGroupId() != null) {
-                if (groupId == transferRequests.getGroupId().intValue()) {
-                    return new SuccessResponse<>(HttpStatus.BAD_REQUEST.value(), "group name not current group user!", null);
-                }
-            }
-        }
-        boolean isCheck = check(request.getRiceRequests().getRiceCus(), request.getRiceRequests().getRiceEmp(), request.getRiceRequests().getRiceVip());
-        if (isCheck) {
-            return new SuccessResponse<>(HttpStatus.BAD_REQUEST.value(), "rise < 0", null);
-        }
-        boolean isCheckReport = checkReport(request);
-        if (isCheckReport) {
-            return new SuccessResponse<>(HttpStatus.BAD_REQUEST.value(), "partTimeNum or studentNum <0", null);
-        }
-        boolean isCheckTransfer = checkTransfer(request.getTransferRequests());
-        if (isCheckTransfer) {
-            return new SuccessResponse<>(HttpStatus.BAD_REQUEST.value(), "TransferNum <0", null);
-        }
         ReportEntity reportEntity = reportRepository.updateReport(request, groupId);
-        riceRepository.updateRice(request.getRiceRequests(), reportEntity.getId());
-        restRepository.updateRest(request.getRestRequests(), reportEntity.getId());
-        transferRepository.updateTransfer(request.getTransferRequests(), reportEntity.getId());
+        if (request.getRiceRequests().getRiceId() != null && request.getRiceRequests().getRiceId() != 0) {
+            riceRepository.updateRice(request.getRiceRequests(), reportEntity.getId());
+        }
+        request.getRestRequests().forEach(z -> {
+            if (z.getRestId() != null && z.getRestId() != 0) {
+                restRepository.updateRest(request.getRestRequests(), reportEntity.getId());
+            }
+        });
+        request.getTransferRequests().forEach(i -> {
+            if (i.getTransferId() != null && i.getTransferId() != 0) {
+                transferRepository.updateTransfer(request.getTransferRequests(), reportEntity.getId());
+            }
+        });
         return ResponseEntity.ok(new SuccessResponse<>(HttpStatus.OK.value(), "update report success", reportDto(DateUtils.formatDate(reportEntity.getReportDate()), reportEntity.getGroupId())));
     }
 
     @Override
     public void deleteRestIdsAndReportId(Integer reportId, List<Integer> restIds) {
         restRepository.deleteRestIdsAndReportId(reportId, restIds);
-        // report id
     }
 
-    private boolean check(int riceCus, int riseEmp, int riseVip) {
-        if (riceCus < 0 || riseEmp < 0 || riseVip < 0) {
-            return true;
+
+    public void deleteRestEmployee(Integer groupId, List<String> laborEmps) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.add(Calendar.HOUR_OF_DAY, 7); // thêm 7 giờ vào thời gian hiện tại
+        Date newDate = calendar.getTime();
+        Optional<GroupEntity> groupEntity = groupRoleRepository.findById(groupId);
+        if (groupEntity.isPresent()) {
+            addEmpTerminationContract(groupId, laborEmps, newDate);
+            employeeGroupRepository.deleteByGroupIdAndLaborCodeIn(groupId, laborEmps);
+            groupEntity.get().setDemarcationAvailable(groupEntity.get().getDemarcationAvailable() - laborEmps.size());
+            groupRoleRepository.save(groupEntity.get());
         }
-        return false;
     }
 
-    private boolean checkReport(ReportRequest request) {
-        if (request.getPartTimeNum() < 0 || request.getStudentNum() < 0) {
-            return true;
+    private void addEmpTerminationContract(Integer groupId, List<String> laborEmps, Date date) {
+        if (laborEmps.size() != 0) {
+            List<EmployeeTerminationOfContractEntity> entities = new ArrayList<>();
+            for (String laborEmp : laborEmps) {
+                Optional<EmployeeGroupEntity> employeeGroup = employeeGroupRepository.findByLaborCode(laborEmp);
+                if (employeeGroup.isPresent()) {
+                    EmployeeTerminationOfContractEntity entityTerOfContract = new EmployeeTerminationOfContractEntity();
+                    entityTerOfContract.setEmployeeLabor(employeeGroup.get().getLaborCode());
+                    entityTerOfContract.setEmployeeName(employeeGroup.get().getName());
+                    entityTerOfContract.setGroupId(groupId);
+                    entityTerOfContract.setStartDate(date);
+                    entities.add(entityTerOfContract);
+                }
+            }
+            empTerminationContractRepository.saveAll(entities);
         }
-        return false;
-    }
-
-    private boolean checkTransfer(List<TransferRequest> request) {
-        if (request.get(0).getTransferNum() < 0 || request.get(1).getTransferNum() < 0) {
-            return true;
-        }
-        return false;
     }
 }
