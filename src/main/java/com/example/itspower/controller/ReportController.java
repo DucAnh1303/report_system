@@ -36,6 +36,7 @@ public class ReportController {
         try {
             return ResponseEntity.ok(reportService.save(reportRequest, groupId));
         } catch (Exception e) {
+            System.out.println("jbvfkadbukdbkdg ilasdfui idlfhidfsdil;hfkljdfshkdfhk;jdfhgfb;dh/");
             throw new GeneralException(e.getMessage());
         }
     }
